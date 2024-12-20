@@ -1,10 +1,13 @@
-import { Slot } from "expo-router";
 import { View, Text } from "react-native";
+import { Slot } from "expo-router";
+
+import Header from "../components/common/Header";
+import { styles } from "../common/styles/styles";
 
 export default function Layout() {
   return (
     <View>
-      <Text>Hola puta e sto es el supuesto header</Text>
+      <Header />
       <Slot />
     </View>
   );
