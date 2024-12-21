@@ -20,7 +20,7 @@ export default function NavBar() {
     <View style={navStyles.navBar__container}>
       <Pressable
         style={({ pressed }) => isPress(pressed, "")}
-        onPress={() => router.replace("/")}
+        onPressIn={() => router.replace("/")}
       >
         <Icon
           style={navStyles.navBar__icon}
@@ -31,7 +31,7 @@ export default function NavBar() {
       </Pressable>
       <Pressable
         style={({ pressed }) => isPress(pressed, "tables")}
-        onPress={() => router.replace("/tables")}
+        onPressIn={() => router.replace("/tables")}
       >
         <Icon
           style={navStyles.navBar__icon}

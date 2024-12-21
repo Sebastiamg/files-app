@@ -132,3 +132,13 @@ export const navStyles = StyleSheet.create({
     backgroundColor: colors.cerulean,
   },
 });
+
+export const layoutStyles = StyleSheet.create({
+  main__container: {
+    position: "relative",
+    flex: 1,
+  },
+  scroll__container: {
+    height: "auto",
+  },
+});

@@ -1,9 +1,12 @@
 import { View } from "react-native";
 import { Slot } from "expo-router";
 
-import Header from "../components/common/Header";
 import { useEffect, useState } from "react";
+import { ScrollView } from "react-native";
+
 import { deleteJsonFile, getJsonData } from "../services/json.service";
+import { layoutStyles } from "../common/styles/styles";
+import Header from "../components/common/Header";
 import NavBar from "../components/common/NavBar";
 
 export default function Layout() {
@@ -18,9 +21,11 @@ export default function Layout() {
   }, []);
 
   return (
-    <View>
+    <View style={layoutStyles.main__container}>
       <Header ownerName={ownerName} setOwnerName={setOwnerName} />
-      <Slot />
+      <ScrollView style={layoutStyles.scroll__container}>
+        <Slot />
+      </ScrollView>
       <NavBar />
     </View>
   );
