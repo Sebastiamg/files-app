@@ -4,7 +4,10 @@ const colors = {
   primary: "#F8961E",
   secondary: "#F94144",
   text: "#252422",
-  text_secondary: "#252422",
+  text_secondary: "#fff8f0",
+  text_3: "#fff8f0",
+
+  disabled: "#d6d6d6",
 
   imperialRed: "#f94144ff",
   orangeCrayola: "#f3722cff",
@@ -18,25 +21,84 @@ const colors = {
   cerulean: "#277da1ff",
 };
 
-export const styles = StyleSheet.create({
+export const headerStyles = StyleSheet.create({
   header: {
-    backgroundColor: colors.primary,
-    display: "flex",
-    flexDirection: "column",
+    // backgroundColor: colors.primary,
   },
   header__title: {
     color: colors.text,
+    backgroundColor: "#ffbc0a",
     fontSize: 25,
     textAlign: "center",
     fontWeight: "bold",
     paddingVertical: 8,
   },
-
+  header__names__container: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    height: 50,
+    backgroundColor: colors.primary,
+  },
   header__owner: {
     color: colors.text,
     fontSize: 20,
-    textAlign: "center",
     fontWeight: "bold",
-    paddingVertical: 8,
+    paddingVertical: 5,
+    flex: 0.5,
+    textAlign: "center",
+  },
+  header__developer: {
+    color: colors.text_secondary,
+    fontSize: 20,
+    fontWeight: "bold",
+    paddingVertical: 5,
+    flex: 0.5,
+    textAlign: "center",
+    borderLeftWidth: 2,
+    borderLeftColor: "#3b3b3b",
+  },
+});
+
+export const setNameStyles = StyleSheet.create({
+  setName: {
+    backgroundColor: colors.cerulean,
+    padding: 10,
+  },
+  setName__text: {
+    color: colors.text_secondary,
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  setName__input__container: {
+    flexDirection: "row",
+    alignItems: "stretch",
+    gap: 5,
+    marginVertical: 10,
+  },
+  setName__input: {
+    backgroundColor: colors.text_secondary,
+    padding: 10,
+    paddingHorizontal: 12,
+    borderRadius: 5,
+    flex: 0.8,
+    fontWeight: "bold",
+  },
+  setName__input__disabled: {
+    backgroundColor: colors.disabled,
+    padding: 10,
+    paddingHorizontal: 12,
+    borderRadius: 5,
+    flex: 0.8,
+    fontWeight: "bold",
+  },
+  setName__icon: {
+    backgroundColor: colors.text_secondary,
+    borderRadius: 5,
+    flex: 0.2,
+  },
+  setName__icon2: {
+    textAlign: "center",
+    padding: 7,
   },
 });

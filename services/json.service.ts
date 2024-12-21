@@ -5,7 +5,7 @@ import jsonBase from "../jsonbase.json";
 
 const fileUri = FileSystem.documentDirectory + "data.json";
 
-async function resetJsonData(): Promise<boolean> {
+export async function resetJsonData(): Promise<boolean> {
   try {
     const jsonData = JSON.stringify(jsonBase);
     await FileSystem.writeAsStringAsync(fileUri, jsonData);
@@ -17,7 +17,7 @@ async function resetJsonData(): Promise<boolean> {
   }
 }
 
-async function deleteJsonFile(): Promise<boolean> {
+export async function deleteJsonFile(): Promise<boolean> {
   try {
     await FileSystem.deleteAsync(fileUri);
     console.log("File has been deleted");
@@ -34,8 +34,20 @@ export async function getJsonData(): Promise<Data> {
     const data: Data = JSON.parse(jsonData);
     return data;
   } catch (error) {
-    console.error("Error al leer el archivo:", error);
+    await FileSystem.writeAsStringAsync(fileUri, JSON.stringify(jsonBase));
+    console.error("Error al leer el archivo, así que se creó:", error);
     return jsonBase;
+  }
+}
+
+export async function setJsonName(name: string) {
+  const jsonData = await getJsonData();
+  const payload = JSON.stringify({ ...jsonData, name });
+  try {
+    await FileSystem.writeAsStringAsync(fileUri, payload);
+    return `${name}: Cambio de nombre exitoso`;
+  } catch (error) {
+    console.error("No hubo archivo, así que se creó", error);
   }
 }
 
@@ -51,6 +63,6 @@ export const storeJsonData = async (data: Activity) => {
 
     return jsonData;
   } catch (error) {
-    console.error("Error al guardar el archivo:", error);
+    console.error("No hubo archivo, así que se creó", error);
   }
 };

@@ -1,12 +1,22 @@
 import { View, Text } from "react-native";
 
-import { styles } from "../../common/styles/styles";
+import { headerStyles } from "../../common/styles/styles";
+import SetName from "../SetName";
 
-export default function Header() {
+interface Props {
+  ownerName: string;
+  setOwnerName: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export default function Header({ ownerName, setOwnerName }: Props) {
   return (
-    <View style={styles.header}>
-      <Text style={styles.header__title}>Actividades de Producción</Text>
-      <Text style={styles.header__owner}>Naty Jarrín</Text>
+    <View style={headerStyles.header}>
+      <Text style={headerStyles.header__title}>Actividades de Producción</Text>
+      <View style={headerStyles.header__names__container}>
+        <Text style={headerStyles.header__owner}>{ownerName}</Text>
+        <Text style={headerStyles.header__developer}>Michael Ortiz</Text>
+      </View>
+      <SetName setOwnerName={setOwnerName} ownerName={ownerName} />
     </View>
   );
 }
