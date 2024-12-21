@@ -102,3 +102,33 @@ export const setNameStyles = StyleSheet.create({
     padding: 7,
   },
 });
+
+export const navStyles = StyleSheet.create({
+  navBar__container: {
+    width: "100%",
+    flexDirection: "row",
+    alignContent: "center",
+    alignItems: "stretch",
+    gap: 2,
+    backgroundColor: colors.text_3,
+  },
+  navBar__button: {
+    width: "50%",
+    textAlign: "center",
+    height: "auto",
+    backgroundColor: colors.disabled,
+
+    borderRadius: 5,
+  },
+  navBar__button__pressed: {
+    elevation: 10,
+    opacity: 0.9,
+  },
+  navBar__icon: {
+    padding: 15,
+    textAlign: "center",
+  },
+  navBar__screen__focused: {
+    backgroundColor: colors.cerulean,
+  },
+});
