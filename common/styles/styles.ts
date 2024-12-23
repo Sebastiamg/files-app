@@ -10,6 +10,9 @@ const colors = {
   disable: "#d6d6d6",
   enable: "#F6F4F4",
 
+  on: "#adc178",
+  off: "#bc4749",
+
   imperialRed: "#f94144ff",
   orangeCrayola: "#f3722cff",
   carrotOrange: "#f8961eff",
@@ -212,5 +215,14 @@ export const inputStyles = StyleSheet.create({
     alignContent: "center",
     alignItems: "center",
     elevation: 5,
+  },
+});
+
+export const voiceStyles = StyleSheet.create({
+  voice__mic__on: {
+    backgroundColor: colors.off,
+  },
+  voice__mic__off: {
+    backgroundColor: colors.on,
   },
 });

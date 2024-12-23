@@ -8,6 +8,7 @@ import {
   initialActivityState,
 } from "../common/reducers/dailyActiviry-reducer";
 import InputComponent from "./InputComponent";
+import SpeechInput from "./SpeechInput";
 
 export default function Form() {
   const [state, dispatch] = useReducer(activityReducer, initialActivityState);
@@ -26,8 +27,8 @@ export default function Form() {
         dispatch={dispatch}
         componentTitle={"date"}
       />
-
       {/* 2. Details component */}
+      <SpeechInput componentTitle={"details"} dispatch={dispatch} />
       {/* 3. Quantity component */}
       <InputComponent componentTitle="quantity" dispatch={dispatch} />
       {/* 4. Start Hour component */}
@@ -36,7 +37,6 @@ export default function Form() {
         dispatch={dispatch}
         componentTitle={"start_hour"}
       />
-
       {/* 5. Pause Hour component */}
       <DateComponent
         componentType={"time"}
@@ -56,7 +56,6 @@ export default function Form() {
         componentTitle={"end_hour"}
       />
       {/* 8. SaveAll Hour component */}
-
       {/* LOG DATA */}
       <Pressable onPress={logActivity}>
         <Text>LOG DATA</Text>
