@@ -7,7 +7,8 @@ const colors = {
   text_secondary: "#fff8f0",
   text_3: "#fff8f0",
 
-  disabled: "#d6d6d6",
+  disable: "#d6d6d6",
+  enable: "#F6F4F4",
 
   imperialRed: "#f94144ff",
   orangeCrayola: "#f3722cff",
@@ -85,7 +86,7 @@ export const setNameStyles = StyleSheet.create({
     fontWeight: "bold",
   },
   setName__input__disabled: {
-    backgroundColor: colors.disabled,
+    backgroundColor: colors.disable,
     padding: 10,
     paddingHorizontal: 12,
     borderRadius: 5,
@@ -116,7 +117,7 @@ export const navStyles = StyleSheet.create({
     width: "50%",
     textAlign: "center",
     height: "auto",
-    backgroundColor: colors.disabled,
+    backgroundColor: colors.disable,
 
     borderRadius: 5,
   },
@@ -140,5 +141,76 @@ export const layoutStyles = StyleSheet.create({
   },
   scroll__container: {
     height: "auto",
+    padding: 10,
+  },
+});
+
+export const formStyles = StyleSheet.create({
+  form__container: {
+    borderBlockColor: "black",
+    borderWidth: 1,
+    borderRadius: 5,
+    width: "100%",
+  },
+  form__title: {
+    fontSize: 20,
+    fontWeight: "bold",
+    textAlign: "center",
+    paddingVertical: 5,
+    borderBottomColor: "black",
+    borderBottomWidth: 1,
+  },
+
+  form__date__container: {
+    padding: 3,
+    width: "100%",
+    flex: 1,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 5,
+  },
+  form__date__title: {
+    textAlign: "left",
+    fontWeight: "bold",
+    fontSize: 15,
+    width: "100%",
+  },
+  form__date__input: {
+    backgroundColor: colors.disable,
+    borderRadius: 5,
+    padding: 10,
+    flex: 0.8,
+    alignContent: "center",
+    alignItems: "center",
+    elevation: 5,
+  },
+  form__date__icon: {
+    width: "100%",
+    height: "auto",
+    backgroundColor: "white",
+    borderRadius: 5,
+    flex: 0.2,
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+    elevation: 5,
+  },
+  form__date__icon2: {
+    textAlign: "center",
+    flex: 1,
+    height: "auto",
+    width: "100%",
+  },
+});
+
+export const inputStyles = StyleSheet.create({
+  input__component: {
+    backgroundColor: colors.enable,
+    borderRadius: 5,
+    padding: 10,
+    flex: 0.8,
+    alignContent: "center",
+    alignItems: "center",
+    elevation: 5,
   },
 });

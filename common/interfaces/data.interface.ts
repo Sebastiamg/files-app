@@ -2,7 +2,7 @@ export interface Activity {
   id: string;
   date: string;
   details: string;
-  quantity: number;
+  quantity: string;
   start_hour: string;
   pause: string;
   restart: string;
@@ -24,7 +24,7 @@ const xd: Data = {
         id: "1",
         date: "22",
         details: "22",
-        quantity: 0,
+        quantity: "0",
         start_hour: "22",
         pause: "22",
         restart: "22",
@@ -34,7 +34,7 @@ const xd: Data = {
         id: "2",
         date: "22",
         details: "22",
-        quantity: 0,
+        quantity: "0",
         start_hour: "22",
         pause: "22",
         restart: "22",
@@ -46,7 +46,7 @@ const xd: Data = {
         id: "1",
         date: "22",
         details: "22",
-        quantity: 0,
+        quantity: "0",
         start_hour: "22",
         pause: "22",
         restart: "22",
@@ -56,7 +56,7 @@ const xd: Data = {
         id: "2",
         date: "22",
         details: "22",
-        quantity: 0,
+        quantity: "0",
         start_hour: "22",
         pause: "22",
         restart: "22",

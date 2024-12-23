@@ -1,6 +1,6 @@
 export function formatName(name: string) {
   return name
-    .split(" ")
+    .split(/[\s_]/)
     .map((string) => {
       return string
         .charAt(0)
