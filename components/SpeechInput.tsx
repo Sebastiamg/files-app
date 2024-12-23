@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { View, Text, Pressable, TextInput } from "react-native";
 
-import Voice from "@react-native-voice/voice";
 import Icon from "react-native-vector-icons/Ionicons";
 
 import { formatName } from "../utils/formatName";
@@ -24,8 +23,17 @@ export default function SpeechInput({ componentTitle, dispatch }: Props) {
   const [isRecording, setIsRecording] = useState<boolean>(false);
   const [speechError, setSpeechError] = useState<string>("");
 
-  useSpeechRecognitionEvent("start", () => setIsRecording(true));
-  useSpeechRecognitionEvent("end", () => setIsRecording(false));
+  useSpeechRecognitionEvent("start", () => {
+    setSpeechedValue("");
+    setIsRecording(true);
+  });
+  useSpeechRecognitionEvent("end", () => {
+    setIsRecording(false);
+    dispatch({
+      type: "add-any",
+      payload: { key: componentTitle, value: formatName(speechedValue, true) },
+    });
+  });
   useSpeechRecognitionEvent("result", (event) => {
     setSpeechedValue(event.results[0]?.transcript);
   });
@@ -33,6 +41,10 @@ export default function SpeechInput({ componentTitle, dispatch }: Props) {
     setSpeechError(event.message);
     console.log("error code:", event.error, "error message:", event.message);
   });
+
+  const handleChange = (text: string) => {
+    setSpeechedValue(text);
+  };
 
   async function startRecording() {
     const result = await ExpoSpeechRecognitionModule.requestPermissionsAsync();
@@ -42,7 +54,7 @@ export default function SpeechInput({ componentTitle, dispatch }: Props) {
     }
     // Start speech recognition
     ExpoSpeechRecognitionModule.start({
-      lang: "en-US",
+      lang: "es-Mx",
       interimResults: true,
       maxAlternatives: 1,
       continuous: false,
@@ -52,7 +64,9 @@ export default function SpeechInput({ componentTitle, dispatch }: Props) {
     });
   }
 
-  async function stopRecording() {}
+  async function stopRecording() {
+    ExpoSpeechRecognitionModule.stop();
+  }
 
   return (
     <View style={[formStyles.form__date__container]}>
@@ -60,10 +74,14 @@ export default function SpeechInput({ componentTitle, dispatch }: Props) {
         {formatName(componentTitle)}:
       </Text>
       <TextInput
-        style={[inputStyles.input__component]}
+        style={[
+          inputStyles.input__component,
+          voiceStyles.voice__input__container,
+        ]}
         multiline
         numberOfLines={10}
-        value={speechedValue}
+        value={formatName(speechedValue, true)}
+        onChangeText={handleChange}
       />
       <Pressable
         style={[
@@ -73,7 +91,6 @@ export default function SpeechInput({ componentTitle, dispatch }: Props) {
             : voiceStyles.voice__mic__on,
         ]}
         onPress={isRecording ? stopRecording : startRecording}
-        // onPress={jaja}
       >
         <Icon
           name={isRecording ? "mic-outline" : "mic-off-outline"}

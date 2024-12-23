@@ -14,8 +14,9 @@ export default function Form() {
   const [state, dispatch] = useReducer(activityReducer, initialActivityState);
 
   const logActivity = () => {
-    console.log(state);
+    // console.log(state);
     // dispatch({ type: "reset-data" });
+    dispatch({ type: "log-state" });
   };
 
   return (
@@ -29,8 +30,10 @@ export default function Form() {
       />
       {/* 2. Details component */}
       <SpeechInput componentTitle={"details"} dispatch={dispatch} />
+
       {/* 3. Quantity component */}
       <InputComponent componentTitle="quantity" dispatch={dispatch} />
+
       {/* 4. Start Hour component */}
       <DateComponent
         componentType={"time"}

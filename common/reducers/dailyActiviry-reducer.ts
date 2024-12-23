@@ -6,7 +6,8 @@ export type activityActions =
       payload: { date: string };
     }
   | { type: "add-any"; payload: { key: keyof Activity; value: string } }
-  | { type: "reset-data" };
+  | { type: "reset-data" }
+  | { type: "log-state" };
 
 type initialState = Activity;
 
@@ -41,6 +42,10 @@ export const activityReducer = (
     case "reset-data":
       console.log("Data reseted...");
       return initialActivityState;
+
+    case "log-state":
+      console.log("estado: ", state);
+      return state;
 
     default:
       return state;

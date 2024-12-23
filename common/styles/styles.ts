@@ -225,4 +225,8 @@ export const voiceStyles = StyleSheet.create({
   voice__mic__off: {
     backgroundColor: colors.on,
   },
+  voice__input__container: {
+    height: 100,
+    textAlignVertical: "top",
+  },
 });
