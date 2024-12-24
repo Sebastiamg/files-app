@@ -1,19 +1,33 @@
 import { DateTimePickerEvent } from "@react-native-community/datetimepicker";
-import { useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { formatDateAndTime } from "../../utils/formatDateTime";
 import { activityActions } from "../reducers/dailyActiviry-reducer";
 import { Activity } from "../interfaces/data.interface";
+import {
+  ActivityContext,
+  DispatchActivityContext,
+} from "../../components/contexts/ActivityContext";
 
 export type dateTime = "date" | "time";
 
 type stateProps = { componentType: dateTime; componentTitle: keyof Activity };
 
-export function useDateAndTime(
-  { componentType, componentTitle }: stateProps,
-  dispatch: React.Dispatch<activityActions>,
-) {
-  const [dateOrTime, setDateOrTime] = useState(new Date());
+export function useDateAndTime({ componentType, componentTitle }: stateProps) {
+  const state = useContext(ActivityContext);
+  const dispatch = useContext(
+    DispatchActivityContext,
+  ) as React.Dispatch<activityActions>;
+
+  const [dateOrTime, setDateOrTime] = useState<Date | string>(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
+
+  useEffect(() => {
+    console.log(dateOrTime);
+    if (componentTitle !== "date") {
+      // setDateOrTime(state[componentTitle]);
+      // console.log(state[componentTitle]);
+    }
+  }, []);
 
   const dataTypeRef = useRef(componentType).current;
   const iconRef = useRef(
@@ -42,7 +56,7 @@ export function useDateAndTime(
   return {
     dateOrTime,
     setDateOrTime,
-    dateOrTimeFormated: formatDateAndTime(dateOrTime, componentType),
+    dateOrTimeFormated: formatDateAndTime(new Date(dateOrTime), componentType),
     showDateModal,
     changeDateOrTime,
     showDatePicker,

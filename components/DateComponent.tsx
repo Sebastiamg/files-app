@@ -28,7 +28,7 @@ export default function DateComponent({
     dataTypeRef,
     dateOrTimeFormated,
     iconRef,
-  } = useDateAndTime({ componentType, componentTitle }, dispatch);
+  } = useDateAndTime({ componentType, componentTitle });
 
   return (
     <View>
@@ -56,7 +56,7 @@ export default function DateComponent({
       {showDatePicker && (
         <RNDateTimePicker
           testID="dateTimePicker"
-          value={dateOrTime}
+          value={new Date()}
           mode={dataTypeRef}
           is24Hour={true}
           onChange={(e, date) => changeDateOrTime(e, date!)}

@@ -10,6 +10,6 @@ export function formatDateAndTime(
   if (type === "date") {
     return value.toISOString().split("T")[0].split("-").reverse().join("/");
   } else {
-    return `${value.getHours()}:${value.getMinutes()}`;
+    return `${value.getHours()}:${value.getMinutes().toString().length === 1 ? "0" + value.getMinutes() : value.getMinutes()}`;
   }
 }

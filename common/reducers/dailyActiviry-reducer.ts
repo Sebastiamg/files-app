@@ -44,7 +44,10 @@ export const activityReducer = (
       return initialActivityState;
 
     case "log-state":
-      console.log("estado: ", state);
+      for (let [key, value] of Object.entries(state)) {
+        console.log(key, "->", value);
+      }
+
       return state;
 
     default:

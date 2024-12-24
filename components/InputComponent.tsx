@@ -12,10 +12,15 @@ import { formatNumber } from "../utils/formatNumbres";
 interface Props {
   componentTitle: keyof Activity;
   dispatch: React.Dispatch<activityActions>;
+  initialState: string;
 }
 
-export default function InputComponent({ componentTitle, dispatch }: Props) {
-  const [value, setValue] = useState<string>("0");
+export default function InputComponent({
+  componentTitle,
+  dispatch,
+  initialState,
+}: Props) {
+  const [value, setValue] = useState<string>(initialState);
 
   const inputRef = useRef<TextInput>(null);
 
