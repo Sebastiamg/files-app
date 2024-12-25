@@ -1,3 +1,4 @@
+import { formatDateAndTime } from "../../utils/formatDateTime";
 import { Activity } from "../interfaces/data.interface";
 
 export type activityActions =
@@ -13,13 +14,13 @@ type initialState = Activity;
 
 export const initialActivityState: initialState = {
   id: "",
-  date: "",
+  date: formatDateAndTime(new Date().toISOString(), "date"),
   details: "",
   quantity: "0",
-  start_hour: "0",
-  pause: "0",
-  restart: "0",
-  end_hour: "0",
+  start_hour: "",
+  pause: "",
+  restart: "",
+  end_hour: "",
 };
 
 export const activityReducer = (

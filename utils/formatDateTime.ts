@@ -1,15 +1,19 @@
 import { dateTime } from "../common/hooks/useDateAndTime";
 
 export function formatDateAndTime(
-  value: Date,
+  value: string | Date,
   type: dateTime,
   lowercase = false,
 ) {
   if (lowercase) return value.toString().toLowerCase();
 
+  const valueToDate = new Date(value);
+
   if (type === "date") {
-    return value.toISOString().split("T")[0].split("-").reverse().join("/");
+    // return value;
+    return valueToDate.toISOString().split("T")[0].split("-").join("-");
   } else {
-    return `${value.getHours()}:${value.getMinutes().toString().length === 1 ? "0" + value.getMinutes() : value.getMinutes()}`;
+    // cambiar
+    return `${valueToDate.getHours()}:${valueToDate.getMinutes().toString().length === 1 ? "0" + valueToDate.getMinutes() : valueToDate.getMinutes()}`;
   }
 }

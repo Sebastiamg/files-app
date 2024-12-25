@@ -34,13 +34,10 @@ export default function Form() {
       <Text style={formStyles.form__title}>Add Daily Activity</Text>
 
       {/* 1. Date component */}
-      <DateComponent
-        componentType={"date"}
-        dispatch={dispatch}
-        componentTitle={"date"}
-      />
+      <DateComponent componentType={"date"} componentTitle={"date"} />
+
       {/* 2. Details component */}
-      <SpeechInput componentTitle={"details"} dispatch={dispatch} />
+      <SpeechInput componentTitle={"details"} />
 
       {/* 3. Quantity component */}
       <InputComponent
@@ -50,29 +47,17 @@ export default function Form() {
       />
 
       {/* 4. Start Hour component */}
-      <DateComponent
-        componentType={"time"}
-        dispatch={dispatch}
-        componentTitle={"start_hour"}
-      />
+      <DateComponent componentType={"time"} componentTitle={"start_hour"} />
+
       {/* 5. Pause Hour component */}
-      <DateComponent
-        componentType={"time"}
-        dispatch={dispatch}
-        componentTitle={"pause"}
-      />
+      <DateComponent componentType={"time"} componentTitle={"pause"} />
+
       {/* 6. Restart Hour component */}
-      <DateComponent
-        componentType={"time"}
-        dispatch={dispatch}
-        componentTitle={"restart"}
-      />
+      <DateComponent componentType={"time"} componentTitle={"restart"} />
+
       {/* 7. End Hour component */}
-      <DateComponent
-        componentType={"time"}
-        dispatch={dispatch}
-        componentTitle={"end_hour"}
-      />
+      <DateComponent componentType={"time"} componentTitle={"end_hour"} />
+
       {/* 8. SaveAll component */}
 
       {/* LOG DATA */}

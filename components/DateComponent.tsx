@@ -6,19 +6,16 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { formStyles } from "../common/styles/styles";
 import { dateTime, useDateAndTime } from "../common/hooks/useDateAndTime";
 import { formatName } from "../utils/formatName";
-import { activityActions } from "../common/reducers/dailyActiviry-reducer";
 import { Activity } from "../common/interfaces/data.interface";
 
 interface Props {
   componentType: dateTime;
   componentTitle: keyof Activity;
-  dispatch: React.Dispatch<activityActions>;
 }
 
 export default function DateComponent({
   componentType,
   componentTitle,
-  dispatch,
 }: Props) {
   const {
     dateOrTime,
@@ -26,7 +23,6 @@ export default function DateComponent({
     showDatePicker,
     changeDateOrTime,
     dataTypeRef,
-    dateOrTimeFormated,
     iconRef,
   } = useDateAndTime({ componentType, componentTitle });
 
@@ -36,10 +32,7 @@ export default function DateComponent({
         <Text style={[formStyles.form__date__title]}>
           {formatName(componentTitle)}:
         </Text>
-        <Text
-          style={[formStyles.form__date__input]}
-          children={dateOrTimeFormated}
-        />
+        <Text style={[formStyles.form__date__input]} children={dateOrTime} />
         <Pressable
           style={[formStyles.form__date__icon]}
           onPress={showDateModal}

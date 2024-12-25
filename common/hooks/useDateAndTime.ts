@@ -18,16 +18,8 @@ export function useDateAndTime({ componentType, componentTitle }: stateProps) {
     DispatchActivityContext,
   ) as React.Dispatch<activityActions>;
 
-  const [dateOrTime, setDateOrTime] = useState<Date | string>(new Date());
+  const [dateOrTime, setDateOrTime] = useState<string>(state[componentTitle]);
   const [showDatePicker, setShowDatePicker] = useState(false);
-
-  useEffect(() => {
-    console.log(dateOrTime);
-    if (componentTitle !== "date") {
-      // setDateOrTime(state[componentTitle]);
-      // console.log(state[componentTitle]);
-    }
-  }, []);
 
   const dataTypeRef = useRef(componentType).current;
   const iconRef = useRef(
@@ -35,13 +27,12 @@ export function useDateAndTime({ componentType, componentTitle }: stateProps) {
   ).current;
 
   function showDateModal() {
-    // Current date on show modal
-    setDateOrTime(new Date());
+    setDateOrTime(formatDateAndTime(new Date(), componentType));
     setShowDatePicker(true);
   }
 
-  function changeDateOrTime(evt: DateTimePickerEvent, date: Date) {
-    setDateOrTime(date);
+  function changeDateOrTime(_: DateTimePickerEvent, date: Date) {
+    setDateOrTime(formatDateAndTime(date, componentType));
     setShowDatePicker(false);
 
     dispatch({
@@ -56,7 +47,6 @@ export function useDateAndTime({ componentType, componentTitle }: stateProps) {
   return {
     dateOrTime,
     setDateOrTime,
-    dateOrTimeFormated: formatDateAndTime(new Date(dateOrTime), componentType),
     showDateModal,
     changeDateOrTime,
     showDatePicker,
