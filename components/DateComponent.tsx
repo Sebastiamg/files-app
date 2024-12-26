@@ -27,25 +27,19 @@ export default function DateComponent({
   } = useDateAndTime({ componentType, componentTitle });
 
   return (
-    <View>
-      <View style={[formStyles.form__date__container]}>
-        <Text style={[formStyles.form__date__title]}>
-          {formatName(componentTitle)}:
-        </Text>
-        <Text style={[formStyles.form__date__input]} children={dateOrTime} />
-        <Pressable
-          style={[formStyles.form__date__icon]}
-          onPress={showDateModal}
-        >
-          <Icon
-            name={iconRef}
-            size={30}
-            color="black"
-            style={formStyles.form__date__icon2}
-          />
-        </Pressable>
-      </View>
-
+    <View style={[formStyles.form__date__container]}>
+      <Text style={[formStyles.form__date__title]}>
+        {formatName(componentTitle)}:
+      </Text>
+      <Text style={[formStyles.form__date__input]} children={dateOrTime} />
+      <Pressable style={[formStyles.form__date__icon]} onPress={showDateModal}>
+        <Icon
+          name={iconRef}
+          size={30}
+          color="black"
+          style={formStyles.form__date__icon2}
+        />
+      </Pressable>
       {showDatePicker && (
         <RNDateTimePicker
           testID="dateTimePicker"

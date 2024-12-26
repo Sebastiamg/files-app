@@ -170,7 +170,8 @@ export const formStyles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: 5,
+    // gap: 5,
+    flexShrink: 1,
   },
   form__date__title: {
     textAlign: "left",
@@ -180,29 +181,39 @@ export const formStyles = StyleSheet.create({
   },
   form__date__input: {
     backgroundColor: colors.disable,
-    borderRadius: 5,
+    borderTopLeftRadius: 5,
+    borderBottomLeftRadius: 5,
     padding: 10,
     flex: 0.8,
     alignContent: "center",
     alignItems: "center",
     elevation: 5,
+    flexBasis: 1,
+    flexShrink: 1,
   },
   form__date__icon: {
     width: "100%",
     height: "auto",
     backgroundColor: "white",
-    borderRadius: 5,
-    flex: 0.2,
+    borderTopRightRadius: 5,
+    borderBottomEndRadius: 5,
+    flex: 0.3,
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
     elevation: 5,
+    flexBasis: 1,
+    flexShrink: 1,
   },
   form__date__icon2: {
     textAlign: "center",
     flex: 1,
     height: "auto",
     width: "100%",
+  },
+  form__hour__container: {
+    flex: 1,
+    flexDirection: "row",
   },
 });
 
@@ -226,7 +237,7 @@ export const voiceStyles = StyleSheet.create({
     backgroundColor: colors.on,
   },
   voice__input__container: {
-    height: 100,
+    height: 90,
     textAlignVertical: "top",
   },
 });

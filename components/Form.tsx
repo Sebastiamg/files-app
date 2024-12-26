@@ -49,12 +49,13 @@ export default function Form() {
       {/* 4. Start Hour component */}
       <DateComponent componentType={"time"} componentTitle={"start_hour"} />
 
-      {/* 5. Pause Hour component */}
-      <DateComponent componentType={"time"} componentTitle={"pause"} />
+      <View style={[formStyles.form__hour__container]}>
+        {/* 5. Pause Hour component */}
+        <DateComponent componentType={"time"} componentTitle={"pause"} />
 
-      {/* 6. Restart Hour component */}
-      <DateComponent componentType={"time"} componentTitle={"restart"} />
-
+        {/* 6. Restart Hour component */}
+        <DateComponent componentType={"time"} componentTitle={"restart"} />
+      </View>
       {/* 7. End Hour component */}
       <DateComponent componentType={"time"} componentTitle={"end_hour"} />
 
