@@ -1,22 +1,15 @@
+import { useContext } from "react";
 import { View, Text } from "react-native";
 
 import { formStyles } from "../common/styles/styles";
+import { ActivityContext } from "./contexts/ActivityContext";
 import DateComponent from "./DateComponent";
-import { useContext } from "react";
-import { activityActions } from "../common/reducers/dailyActiviry-reducer";
 import InputComponent from "./InputComponent";
 import SpeechInput from "./SpeechInput";
-import {
-  ActivityContext,
-  DispatchActivityContext,
-} from "./contexts/ActivityContext";
 import SaveData from "./SaveData";
 
 export default function Form() {
-  const state = useContext(ActivityContext);
-  const dispatch = useContext(
-    DispatchActivityContext,
-  ) as React.Dispatch<activityActions>;
+  const [activityState, activityDispatch] = useContext(ActivityContext);
 
   return (
     <View style={formStyles.form__container}>
@@ -30,9 +23,9 @@ export default function Form() {
 
       {/* 3. Quantity component */}
       <InputComponent
-        initialState={state.quantity}
+        initialState={activityState.quantity}
         componentTitle="quantity"
-        dispatch={dispatch}
+        activityDispatch={activityDispatch}
       />
 
       {/* 4. Start Hour component */}

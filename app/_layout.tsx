@@ -12,10 +12,7 @@ import {
   activityReducer,
   initialActivityState,
 } from "../common/reducers/dailyActiviry-reducer";
-import {
-  ActivityContext,
-  DispatchActivityContext,
-} from "../components/contexts/ActivityContext";
+import { ActivityContext } from "../components/contexts/ActivityContext";
 import Icon from "react-native-vector-icons/Ionicons";
 import {
   activitiesReducer,
@@ -26,7 +23,10 @@ import { ActivitiesContext } from "../components/contexts/ActivitiesContext";
 export default function Layout() {
   const [ownerName, setOwnerName] = useState<string>("No name");
 
-  const [state, dispatch] = useReducer(activityReducer, initialActivityState);
+  const [activityState, activityDispatch] = useReducer(
+    activityReducer,
+    initialActivityState,
+  );
   const [activitiesState, activitiesDispatch] = useReducer(
     activitiesReducer,
     initialActivitiesState,
@@ -42,25 +42,23 @@ export default function Layout() {
 
   return (
     <ActivitiesContext.Provider value={[activitiesState, activitiesDispatch]}>
-      <ActivityContext.Provider value={state}>
-        <DispatchActivityContext.Provider value={dispatch}>
-          <View style={layoutStyles.main__container}>
-            <Header ownerName={ownerName} setOwnerName={setOwnerName} />
-            <ScrollView style={layoutStyles.scroll__container}>
-              <ToastProvider
-                dangerIcon={
-                  <Icon name="close-circle-outline" size={25} color="black" />
-                }
-                successIcon={
-                  <Icon name="checkmark-outline" size={25} color="black" />
-                }
-              >
-                <Slot />
-              </ToastProvider>
-            </ScrollView>
-            <NavBar />
-          </View>
-        </DispatchActivityContext.Provider>
+      <ActivityContext.Provider value={[activityState, activityDispatch]}>
+        <View style={layoutStyles.main__container}>
+          <Header ownerName={ownerName} setOwnerName={setOwnerName} />
+          <ScrollView style={layoutStyles.scroll__container}>
+            <ToastProvider
+              dangerIcon={
+                <Icon name="close-circle-outline" size={25} color="black" />
+              }
+              successIcon={
+                <Icon name="checkmark-outline" size={25} color="black" />
+              }
+            >
+              <Slot />
+            </ToastProvider>
+          </ScrollView>
+          <NavBar />
+        </View>
       </ActivityContext.Provider>
     </ActivitiesContext.Provider>
   );

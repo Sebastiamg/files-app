@@ -1,25 +1,20 @@
+import { useContext, useRef, useState } from "react";
+
 import { DateTimePickerEvent } from "@react-native-community/datetimepicker";
-import { useContext, useEffect, useRef, useState } from "react";
+
 import { formatDateAndTime } from "../../utils/formatDateTime";
-import { activityActions } from "../reducers/dailyActiviry-reducer";
 import { Activity } from "../interfaces/data.interface";
-import {
-  ActivityContext,
-  DispatchActivityContext,
-} from "../../components/contexts/ActivityContext";
+import { ActivityContext } from "../../components/contexts/ActivityContext";
 
 export type dateTime = "date" | "time";
 
 type stateProps = { componentType: dateTime; componentTitle: keyof Activity };
 
 export function useDateAndTime({ componentType, componentTitle }: stateProps) {
-  const state = useContext(ActivityContext);
-  const dispatch = useContext(
-    DispatchActivityContext,
-  ) as React.Dispatch<activityActions>;
+  const [activityState, activityDispatch] = useContext(ActivityContext);
 
   const [dateOrTime, setDateOrTime] = useState<string>(
-    state[componentTitle] as string,
+    activityState[componentTitle] as string,
   );
   const [showDatePicker, setShowDatePicker] = useState(false);
 
@@ -38,7 +33,7 @@ export function useDateAndTime({ componentType, componentTitle }: stateProps) {
     setDateOrTime(formatDateAndTime(date, componentType));
     setShowDatePicker(false);
 
-    dispatch({
+    activityDispatch({
       type: "add-any",
       payload: {
         key: componentTitle,

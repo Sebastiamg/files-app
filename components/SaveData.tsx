@@ -2,10 +2,7 @@ import { useContext } from "react";
 import { Text, TouchableOpacity } from "react-native";
 
 import { activityActions } from "../common/reducers/dailyActiviry-reducer";
-import {
-  ActivityContext,
-  DispatchActivityContext,
-} from "./contexts/ActivityContext";
+import { ActivityContext } from "./contexts/ActivityContext";
 import { ShowToast } from "../utils/showToast";
 import {
   getJsonData,
@@ -15,15 +12,12 @@ import {
 import { formStyles } from "../common/styles/styles";
 
 export default function SaveData() {
-  const state = useContext(ActivityContext);
-  const dispatch = useContext(
-    DispatchActivityContext,
-  ) as React.Dispatch<activityActions>;
+  const [activityState, activityDispatch] = useContext(ActivityContext);
 
   const saveData = () => {
-    dispatch({ type: "save_in_db" });
+    activityDispatch({ type: "save_in_db" });
     // resetJsonData();
-    // dispatch({ type: "logfomdb" });
+    // activityDispatch({ type: "logfomdb" });
     // ShowToast("Input de mensaje debe ser puesto", "success");
   };
 

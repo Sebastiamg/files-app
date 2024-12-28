@@ -11,13 +11,13 @@ import { formatNumber } from "../utils/formatNumbres";
 
 interface Props {
   componentTitle: keyof Activity;
-  dispatch: React.Dispatch<activityActions>;
+  activityDispatch: React.Dispatch<activityActions>;
   initialState: string;
 }
 
 export default function InputComponent({
   componentTitle,
-  dispatch,
+  activityDispatch,
   initialState,
 }: Props) {
   const [value, setValue] = useState<string>(initialState);
@@ -34,7 +34,7 @@ export default function InputComponent({
   };
 
   const setInputValue = () => {
-    dispatch({
+    activityDispatch({
       type: "add-any",
       payload: { key: componentTitle, value: formatNumber(value) },
     });

@@ -1,19 +1,12 @@
 import { useContext, useEffect } from "react";
-import {
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-  ViewStyle,
-  FlatList,
-} from "react-native";
+import { View, Text, ScrollView, FlatList } from "react-native";
+
+import Icon from "react-native-vector-icons/Ionicons";
 
 import { getJsonData } from "../services/json.service";
 import { ActivitiesContext } from "./contexts/ActivitiesContext";
-import Icon from "react-native-vector-icons/Ionicons";
 import { Activity } from "../common/interfaces/data.interface";
 import { formatName } from "../utils/formatName";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { listStyles } from "../common/styles/styles";
 
 export default function ActivityList() {

@@ -5,30 +5,22 @@ import Icon from "react-native-vector-icons/Ionicons";
 
 import { formatName } from "../utils/formatName";
 import { Activity } from "../common/interfaces/data.interface";
-import { activityActions } from "../common/reducers/dailyActiviry-reducer";
 import { formStyles, inputStyles, voiceStyles } from "../common/styles/styles";
-
 import {
   ExpoSpeechRecognitionModule,
   useSpeechRecognitionEvent,
 } from "expo-speech-recognition";
-import {
-  ActivityContext,
-  DispatchActivityContext,
-} from "./contexts/ActivityContext";
+import { ActivityContext } from "./contexts/ActivityContext";
 
 interface Props {
   componentTitle: keyof Activity;
 }
 
 export default function SpeechInput({ componentTitle }: Props) {
-  const state = useContext(ActivityContext);
-  const dispatch = useContext(
-    DispatchActivityContext,
-  ) as React.Dispatch<activityActions>;
+  const [activityState, activityDispatch] = useContext(ActivityContext);
 
   const [speechedValue, setSpeechedValue] = useState<string>(
-    state[componentTitle] as string,
+    activityState[componentTitle] as string,
   );
   const [isRecording, setIsRecording] = useState<boolean>(false);
   const [speechError, setSpeechError] = useState<string>("");
@@ -39,7 +31,7 @@ export default function SpeechInput({ componentTitle }: Props) {
   });
   useSpeechRecognitionEvent("end", () => {
     setIsRecording(false);
-    dispatch({
+    activityDispatch({
       type: "add-any",
       payload: { key: componentTitle, value: formatName(speechedValue, true) },
     });
@@ -54,7 +46,7 @@ export default function SpeechInput({ componentTitle }: Props) {
 
   const handleChange = (text: string) => {
     setSpeechedValue(text);
-    dispatch({
+    activityDispatch({
       type: "add-any",
       payload: { key: componentTitle, value: formatName(text, true) },
     });

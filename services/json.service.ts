@@ -1,15 +1,13 @@
 import uuid from "react-native-uuid";
-
 import * as FileSystem from "expo-file-system";
-import { Activity, Data } from "../common/interfaces/data.interface";
-
-import jsonBase from "../jsonbase.json";
-import { ShowToast } from "../utils/showToast";
-
-const fileUri = FileSystem.documentDirectory + "data.json";
-
 import * as Print from "expo-print";
 import { shareAsync } from "expo-sharing";
+
+import { Activity, Data } from "../common/interfaces/data.interface";
+import { ShowToast } from "../utils/showToast";
+import jsonBase from "../jsonbase.json";
+
+const fileUri = FileSystem.documentDirectory + "data.json";
 
 // -------------------- Clear data from JSON file
 export async function resetJsonData(): Promise<boolean> {
