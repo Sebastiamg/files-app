@@ -6,6 +6,7 @@ import { setNameStyles } from "../common/styles/styles";
 import { useState } from "react";
 import { setJsonName } from "../services/json.service";
 import { formatName } from "../utils/formatName";
+import { ShowToast } from "../utils/showToast";
 
 interface Props {
   ownerName: string;
@@ -16,7 +17,12 @@ export default function SetName({ setOwnerName, ownerName }: Props) {
   const [editableInput, setEditableInput] = useState(false);
 
   function defineOwnerAndDisableInput() {
-    setJsonName(formatName(ownerName)).then((data) => console.log(data));
+    setJsonName(formatName(ownerName))
+      .then((data) => {
+        console.log(data);
+        ShowToast("Name changed successfully", "success");
+      })
+      .catch((err) => ShowToast("Error changing name", "danger"));
     setEditableInput(false);
   }
 

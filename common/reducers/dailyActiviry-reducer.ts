@@ -1,5 +1,7 @@
 import { getJsonData, storeJsonData } from "../../services/json.service";
 import { formatDateAndTime } from "../../utils/formatDateTime";
+import { formatName } from "../../utils/formatName";
+import { ShowToast } from "../../utils/showToast";
 import { Activity } from "../interfaces/data.interface";
 
 export type activityActions =
@@ -61,11 +63,36 @@ export const activityReducer = (
       return state;
 
     case "save_in_db":
-      storeJsonData(state).then((res) => {
-        console.log(res);
-      });
+      const skipStrings: (keyof Activity)[] = [
+        "id",
+        "date",
+        "pause",
+        "restart",
+      ];
 
-      return state;
+      try {
+        for (
+          let i = 0, entrie = Object.entries(state);
+          i < Object.entries(state).length;
+          i++
+        ) {
+          const [key, value] = entrie[i];
+
+          if (skipStrings.includes(key as keyof Activity)) continue;
+          if (value.length <= 0) {
+            throw new Error(`${formatName(key)} is Empty`);
+          }
+        }
+
+        storeJsonData(state).then((res) => {
+          state = initialActivityState;
+        });
+        return initialActivityState;
+      } catch (err: unknown) {
+        const { message } = err as { message: string };
+        ShowToast(message, "danger");
+        return state;
+      }
 
     default:
       return state;

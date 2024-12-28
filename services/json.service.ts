@@ -1,7 +1,5 @@
 import uuid from "react-native-uuid";
 import * as FileSystem from "expo-file-system";
-import * as Print from "expo-print";
-import { shareAsync } from "expo-sharing";
 
 import { Activity, Data } from "../common/interfaces/data.interface";
 import { ShowToast } from "../utils/showToast";
@@ -65,14 +63,14 @@ export async function setJsonName(name: string) {
 export const storeJsonData = async (activity: Activity) => {
   const { activities, name } = await getJsonData();
 
-  const emptyDay = activities[activity.date] === undefined;
-  console.log("esta vacío: ", activities[activity.date]);
+  const emptyDate = activities[activity.date] === undefined;
+
   try {
     const jsonData: Data = {
       name,
       activities: {
         ...activities,
-        [activity.date]: emptyDay
+        [activity.date]: emptyDate
           ? [{ ...activity, id: uuid.v4() }]
           : [...activities[activity.date], { ...activity, id: uuid.v4() }],
       },
@@ -86,12 +84,3 @@ export const storeJsonData = async (activity: Activity) => {
     console.error(error);
   }
 };
-
-export async function printAndSahreXD(html?: string) {
-  if (html) {
-    const { uri } = await Print.printToFileAsync({ html });
-    await shareAsync(uri, { UTI: "Holaxd.pdf", mimeType: "application/pdf" });
-  } else {
-    return "sin html";
-  }
-}

@@ -5,7 +5,7 @@ import * as Print from "expo-print";
 import { shareAsync } from "expo-sharing";
 
 import { ActivitiesContext } from "./contexts/ActivitiesContext";
-import { printAndSahreXD } from "../services/json.service";
+import { sharePDF } from "../services/pdf.service";
 
 export default function CreatePdf() {
   const [activitiesState, activitiesdispatch] = useContext(ActivitiesContext);
@@ -91,16 +91,13 @@ export default function CreatePdf() {
     : "";
 
   const printToFile = async () => {
-    printAndSahreXD(htmlContent);
+    sharePDF(htmlContent);
   };
 
   return (
     <View>
       <Pressable onPress={printToFile}>
-        <Text>CREAT PDF</Text>
-        <Text>CREAT PDF</Text>
-        <Text>CREAT PDF</Text>
-        <Text>CREAT PDF</Text>
+        <Text>Download Daily Report</Text>
       </Pressable>
     </View>
   );

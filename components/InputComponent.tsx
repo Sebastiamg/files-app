@@ -20,24 +20,28 @@ export default function InputComponent({
   activityDispatch,
   initialState,
 }: Props) {
-  const [value, setValue] = useState<string>(initialState);
+  // const [value, setValue] = useState<string>(initialState);
 
   const inputRef = useRef<TextInput>(null);
 
   const handleChange = (text: string) => {
-    setValue(formatNumber(text));
+    // setValue(formatNumber(text));
+    activityDispatch({
+      type: "add-any",
+      payload: { key: componentTitle, value: formatNumber(text) },
+    });
   };
 
   const handleIconPress = () => {
-    setValue("");
+    // setValue("");
     inputRef.current?.focus();
   };
 
   const setInputValue = () => {
-    activityDispatch({
-      type: "add-any",
-      payload: { key: componentTitle, value: formatNumber(value) },
-    });
+    // activityDispatch({
+    //   type: "add-any",
+    //   payload: { key: componentTitle, value: formatNumber(value) },
+    // });
   };
 
   return (
@@ -48,7 +52,7 @@ export default function InputComponent({
       <TextInput
         keyboardType="numeric"
         style={[inputStyles.input__component]}
-        value={value}
+        value={initialState}
         onChangeText={(e) => handleChange(e)}
         ref={inputRef}
         onEndEditing={setInputValue}

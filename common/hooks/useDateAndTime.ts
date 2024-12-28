@@ -13,9 +13,9 @@ type stateProps = { componentType: dateTime; componentTitle: keyof Activity };
 export function useDateAndTime({ componentType, componentTitle }: stateProps) {
   const [activityState, activityDispatch] = useContext(ActivityContext);
 
-  const [dateOrTime, setDateOrTime] = useState<string>(
-    activityState[componentTitle] as string,
-  );
+  // const [dateOrTime, setDateOrTime] = useState<string>(
+  //   activityState[componentTitle] as string,
+  // );
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   const dataTypeRef = useRef(componentType).current;
@@ -24,27 +24,26 @@ export function useDateAndTime({ componentType, componentTitle }: stateProps) {
   ).current;
 
   function showDateModal() {
-    console.log("date ahorita: ", new Date().toString());
-    setDateOrTime(formatDateAndTime(new Date().toString(), componentType));
+    // setDateOrTime(formatDateAndTime(new Date().toString(), componentType));
     setShowDatePicker(true);
   }
 
-  function changeDateOrTime(_: DateTimePickerEvent, date: Date) {
-    setDateOrTime(formatDateAndTime(date, componentType));
+  function changeDateOrTime(e: DateTimePickerEvent, date: Date) {
+    if (e.type === "set") {
+      // setDateOrTime(formatDateAndTime(date, componentType));
+      activityDispatch({
+        type: "add-any",
+        payload: {
+          key: componentTitle,
+          value: formatDateAndTime(date, componentType),
+        },
+      });
+    }
     setShowDatePicker(false);
-
-    activityDispatch({
-      type: "add-any",
-      payload: {
-        key: componentTitle,
-        value: formatDateAndTime(date, componentType),
-      },
-    });
   }
 
   return {
-    dateOrTime,
-    setDateOrTime,
+    dateOrTime: activityState[componentTitle] as string,
     showDateModal,
     changeDateOrTime,
     showDatePicker,

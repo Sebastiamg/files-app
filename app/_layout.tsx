@@ -4,7 +4,7 @@ import { Slot } from "expo-router";
 
 import { ToastProvider } from "react-native-toast-notifications";
 
-import { deleteJsonFile, getJsonData } from "../services/json.service";
+import { getJsonData } from "../services/json.service";
 import { layoutStyles } from "../common/styles/styles";
 import Header from "../components/common/Header";
 import NavBar from "../components/common/NavBar";
@@ -36,28 +36,26 @@ export default function Layout() {
     getJsonData().then((data) => {
       setOwnerName(data.name.length ? data.name : ownerName);
     });
-
-    // deleteJsonFile();
   }, []);
 
   return (
     <ActivitiesContext.Provider value={[activitiesState, activitiesDispatch]}>
       <ActivityContext.Provider value={[activityState, activityDispatch]}>
         <View style={layoutStyles.main__container}>
-          <Header ownerName={ownerName} setOwnerName={setOwnerName} />
-          <ScrollView style={layoutStyles.scroll__container}>
-            <ToastProvider
-              dangerIcon={
-                <Icon name="close-circle-outline" size={25} color="black" />
-              }
-              successIcon={
-                <Icon name="checkmark-outline" size={25} color="black" />
-              }
-            >
+          <ToastProvider
+            dangerIcon={
+              <Icon name="close-circle-outline" size={25} color="black" />
+            }
+            successIcon={
+              <Icon name="checkmark-outline" size={25} color="black" />
+            }
+          >
+            <Header ownerName={ownerName} setOwnerName={setOwnerName} />
+            <ScrollView style={layoutStyles.scroll__container}>
               <Slot />
-            </ToastProvider>
-          </ScrollView>
-          <NavBar />
+            </ScrollView>
+            <NavBar />
+          </ToastProvider>
         </View>
       </ActivityContext.Provider>
     </ActivitiesContext.Provider>

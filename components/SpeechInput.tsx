@@ -19,25 +19,32 @@ interface Props {
 export default function SpeechInput({ componentTitle }: Props) {
   const [activityState, activityDispatch] = useContext(ActivityContext);
 
-  const [speechedValue, setSpeechedValue] = useState<string>(
-    activityState[componentTitle] as string,
-  );
+  // const [speechedValue, setSpeechedValue] = useState<string>(
+  //   activityState[componentTitle] as string,
+  // );
   const [isRecording, setIsRecording] = useState<boolean>(false);
   const [speechError, setSpeechError] = useState<string>("");
 
   useSpeechRecognitionEvent("start", () => {
-    setSpeechedValue("");
+    // setSpeechedValue("");
     setIsRecording(true);
   });
-  useSpeechRecognitionEvent("end", () => {
+  useSpeechRecognitionEvent("end", (e) => {
     setIsRecording(false);
-    activityDispatch({
-      type: "add-any",
-      payload: { key: componentTitle, value: formatName(speechedValue, true) },
-    });
+    // activityDispatch({
+    //   type: "add-any",
+    //   payload: { key: componentTitle, value: formatName(speechedValue, true) },
+    // });
   });
   useSpeechRecognitionEvent("result", (event) => {
-    setSpeechedValue(event.results[0]?.transcript);
+    // setSpeechedValue(event.results[0]?.transcript);
+    activityDispatch({
+      type: "add-any",
+      payload: {
+        key: componentTitle,
+        value: formatName(event.results[0]?.transcript, true),
+      },
+    });
   });
   useSpeechRecognitionEvent("error", (event) => {
     setSpeechError(event.message);
@@ -45,7 +52,7 @@ export default function SpeechInput({ componentTitle }: Props) {
   });
 
   const handleChange = (text: string) => {
-    setSpeechedValue(text);
+    // setSpeechedValue(text);
     activityDispatch({
       type: "add-any",
       payload: { key: componentTitle, value: formatName(text, true) },
@@ -86,7 +93,8 @@ export default function SpeechInput({ componentTitle }: Props) {
         ]}
         multiline
         numberOfLines={10}
-        value={formatName(speechedValue, true)}
+        // value={formatName(speechedValue, true)}
+        value={formatName(activityState.details, true)}
         onChangeText={handleChange}
         // onTouchEnd={(e) => e.currentTarget.blur()}
         keyboardType="url"

@@ -1,4 +1,4 @@
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable, PointerEvent } from "react-native";
 
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -46,7 +46,7 @@ export default function DateComponent({
           value={new Date(new Date().toString())}
           mode={dataTypeRef}
           is24Hour={true}
-          onChange={(e, date) => changeDateOrTime(e, date!)}
+          onChange={(e, date) => changeDateOrTime(e, date as Date)}
         />
       )}
     </View>

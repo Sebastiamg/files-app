@@ -12,7 +12,7 @@ import {
 import { formStyles } from "../common/styles/styles";
 
 export default function SaveData() {
-  const [activityState, activityDispatch] = useContext(ActivityContext);
+  const [, activityDispatch] = useContext(ActivityContext);
 
   const saveData = () => {
     activityDispatch({ type: "save_in_db" });
