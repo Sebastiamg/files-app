@@ -1,3 +1,4 @@
+import { getJsonData, storeJsonData } from "../../services/json.service";
 import { formatDateAndTime } from "../../utils/formatDateTime";
 import { Activity } from "../interfaces/data.interface";
 
@@ -8,13 +9,16 @@ export type activityActions =
     }
   | { type: "add-any"; payload: { key: keyof Activity; value: string } }
   | { type: "reset-data" }
-  | { type: "log-state" };
+  | { type: "log-state" }
+  | { type: "logfomdb" }
+  // db methods
+  | { type: "save_in_db" };
 
 type initialState = Activity;
 
 export const initialActivityState: initialState = {
   id: "",
-  date: formatDateAndTime(new Date().toISOString(), "date"),
+  date: formatDateAndTime(new Date().toString(), "date"),
   details: "",
   quantity: "0",
   start_hour: "",
@@ -48,6 +52,18 @@ export const activityReducer = (
       for (let [key, value] of Object.entries(state)) {
         console.log(key, "->", value);
       }
+
+    case "logfomdb":
+      getJsonData().then((res) => {
+        console.log(res);
+      });
+
+      return state;
+
+    case "save_in_db":
+      storeJsonData(state).then((res) => {
+        console.log(res);
+      });
 
       return state;
 

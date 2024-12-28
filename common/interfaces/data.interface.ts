@@ -4,8 +4,8 @@ export interface Activity {
   details: string;
   quantity: string;
   start_hour: string;
-  pause: string;
-  restart: string;
+  pause?: string;
+  restart?: string;
   end_hour: string;
 }
 

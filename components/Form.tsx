@@ -1,33 +1,22 @@
-import { View, Text, Pressable } from "react-native";
+import { View, Text } from "react-native";
 
 import { formStyles } from "../common/styles/styles";
 import DateComponent from "./DateComponent";
-import { useContext, useEffect, useReducer } from "react";
-import {
-  activityActions,
-  activityReducer,
-  initialActivityState,
-} from "../common/reducers/dailyActiviry-reducer";
+import { useContext } from "react";
+import { activityActions } from "../common/reducers/dailyActiviry-reducer";
 import InputComponent from "./InputComponent";
 import SpeechInput from "./SpeechInput";
 import {
   ActivityContext,
   DispatchActivityContext,
 } from "./contexts/ActivityContext";
+import SaveData from "./SaveData";
 
 export default function Form() {
-  // const [state, dispatch] = useReducer(activityReducer, initialActivityState);
-
   const state = useContext(ActivityContext);
   const dispatch = useContext(
     DispatchActivityContext,
   ) as React.Dispatch<activityActions>;
-
-  const logActivity = () => {
-    console.log(state);
-    // dispatch({ type: "reset-data" });
-    // dispatch({ type: "log-state" });
-  };
 
   return (
     <View style={formStyles.form__container}>
@@ -56,18 +45,12 @@ export default function Form() {
         {/* 6. Restart Hour component */}
         <DateComponent componentType={"time"} componentTitle={"restart"} />
       </View>
+
       {/* 7. End Hour component */}
       <DateComponent componentType={"time"} componentTitle={"end_hour"} />
 
       {/* 8. SaveAll component */}
-
-      {/* LOG DATA */}
-      <Pressable onPress={logActivity}>
-        <Text>LOG DATA</Text>
-      </Pressable>
-      <Pressable onPress={logActivity}>
-        <Text>DELETE DATA</Text>
-      </Pressable>
+      <SaveData />
     </View>
   );
 }

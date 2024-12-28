@@ -7,13 +7,12 @@ export function formatDateAndTime(
 ) {
   if (lowercase) return value.toString().toLowerCase();
 
-  const valueToDate = new Date(value);
+  let valueToDate = new Date(value);
 
   if (type === "date") {
-    // return value;
-    return valueToDate.toISOString().split("T")[0].split("-").join("-");
+    // return valueToDate.toISOString().split("T")[0].split("-").join("-");
+    return `${valueToDate.getFullYear()}-${valueToDate.getMonth() + 1}-${valueToDate.getDate()}`;
   } else {
-    // cambiar
     return `${valueToDate.getHours()}:${valueToDate.getMinutes().toString().length === 1 ? "0" + valueToDate.getMinutes() : valueToDate.getMinutes()}`;
   }
 }

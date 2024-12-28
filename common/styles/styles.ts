@@ -154,6 +154,8 @@ export const formStyles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     width: "100%",
+    padding: 3,
+    gap: 3,
   },
   form__title: {
     fontSize: 20,
@@ -165,13 +167,12 @@ export const formStyles = StyleSheet.create({
   },
 
   form__date__container: {
-    padding: 3,
     width: "100%",
     flex: 1,
     flexDirection: "row",
     flexWrap: "wrap",
-    // gap: 5,
     flexShrink: 1,
+    padding: 2,
   },
   form__date__title: {
     textAlign: "left",
@@ -215,6 +216,17 @@ export const formStyles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
   },
+
+  form__save__data__container: {
+    padding: 10,
+    backgroundColor: colors.orangeCrayola,
+    borderRadius: 5,
+  },
+  form__save__data__title: {
+    fontWeight: "bold",
+    textAlign: "center",
+    fontSize: 20,
+  },
 });
 
 export const inputStyles = StyleSheet.create({
@@ -239,5 +251,87 @@ export const voiceStyles = StyleSheet.create({
   voice__input__container: {
     height: 90,
     textAlignVertical: "top",
+  },
+});
+
+export const listStyles = StyleSheet.create({
+  list__item0: {
+    width: 100,
+  },
+  list__item1: {
+    width: 250,
+  },
+  list__item2: {
+    width: 90,
+  },
+  list__item3: {
+    width: 75,
+  },
+  list__item4: {
+    width: 75,
+  },
+  list__item5: {
+    width: 75,
+  },
+  list__item6: {
+    width: 75,
+  },
+  list__item7: {
+    width: 150,
+  },
+  list__item8: {
+    width: 150,
+  },
+
+  // xd
+  horizontalScroll: {
+    flex: 1,
+    marginVertical: 20,
+    backgroundColor: colors.enable,
+  },
+  title: {
+    textAlign: "left",
+    fontWeight: "bold",
+    fontSize: 20,
+  },
+  header: {
+    flexDirection: "row",
+    backgroundColor: colors.carrotOrange,
+    padding: 3,
+    borderRadius: 5,
+    borderWidth: 2,
+  },
+  headerCell: {
+    minWidth: 10,
+    paddingHorizontal: 10,
+    justifyContent: "center",
+    alignSelf: "center",
+  },
+  headerText: {
+    fontWeight: "bold",
+    fontSize: 16,
+    textAlign: "center",
+  },
+  row: {
+    flexDirection: "row",
+    borderRadius: 5,
+    borderBottomWidth: 2,
+    padding: 10,
+    // height: 40,
+  },
+  cell: {
+    minWidth: 10,
+    paddingHorizontal: 10,
+    alignSelf: "center",
+  },
+  cellText: {
+    fontSize: 14,
+    textAlign: "center",
+  },
+  cellDetails: {
+    textAlign: "left",
+  },
+  zebraRow: {
+    backgroundColor: colors.disable,
   },
 });

@@ -28,7 +28,7 @@ export default function SpeechInput({ componentTitle }: Props) {
   ) as React.Dispatch<activityActions>;
 
   const [speechedValue, setSpeechedValue] = useState<string>(
-    state[componentTitle],
+    state[componentTitle] as string,
   );
   const [isRecording, setIsRecording] = useState<boolean>(false);
   const [speechError, setSpeechError] = useState<string>("");
@@ -54,6 +54,10 @@ export default function SpeechInput({ componentTitle }: Props) {
 
   const handleChange = (text: string) => {
     setSpeechedValue(text);
+    dispatch({
+      type: "add-any",
+      payload: { key: componentTitle, value: formatName(text, true) },
+    });
   };
 
   async function startRecording() {
@@ -92,6 +96,8 @@ export default function SpeechInput({ componentTitle }: Props) {
         numberOfLines={10}
         value={formatName(speechedValue, true)}
         onChangeText={handleChange}
+        // onTouchEnd={(e) => e.currentTarget.blur()}
+        keyboardType="url"
       />
       <Pressable
         style={[

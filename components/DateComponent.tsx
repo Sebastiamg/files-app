@@ -43,7 +43,7 @@ export default function DateComponent({
       {showDatePicker && (
         <RNDateTimePicker
           testID="dateTimePicker"
-          value={new Date()}
+          value={new Date(new Date().toString())}
           mode={dataTypeRef}
           is24Hour={true}
           onChange={(e, date) => changeDateOrTime(e, date!)}

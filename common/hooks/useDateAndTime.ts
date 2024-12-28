@@ -18,7 +18,9 @@ export function useDateAndTime({ componentType, componentTitle }: stateProps) {
     DispatchActivityContext,
   ) as React.Dispatch<activityActions>;
 
-  const [dateOrTime, setDateOrTime] = useState<string>(state[componentTitle]);
+  const [dateOrTime, setDateOrTime] = useState<string>(
+    state[componentTitle] as string,
+  );
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   const dataTypeRef = useRef(componentType).current;
@@ -27,7 +29,8 @@ export function useDateAndTime({ componentType, componentTitle }: stateProps) {
   ).current;
 
   function showDateModal() {
-    setDateOrTime(formatDateAndTime(new Date(), componentType));
+    console.log("date ahorita: ", new Date().toString());
+    setDateOrTime(formatDateAndTime(new Date().toString(), componentType));
     setShowDatePicker(true);
   }
 
