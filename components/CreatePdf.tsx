@@ -1,14 +1,15 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Pressable, Text, View } from "react-native";
 
-import * as Print from "expo-print";
-import { shareAsync } from "expo-sharing";
-
-import { ActivitiesContext } from "./contexts/ActivitiesContext";
+import { ActivitiesStateContext } from "./contexts/ActivitiesContext";
 import { sharePDF } from "../services/pdf.service";
 
+import RNHTMLtoPDF from "react-native-html-to-pdf";
+import { initialActivitiesState } from "../common/reducers/activities-reducer";
+
 export default function CreatePdf() {
-  const [activitiesState, activitiesdispatch] = useContext(ActivitiesContext);
+  const activitiesState = useContext(ActivitiesStateContext);
+  // useEffect(() => console.log("perra"), [activitiesState]);
 
   const htmlContent = activitiesState.todayActivities
     ? `
@@ -91,13 +92,28 @@ export default function CreatePdf() {
     : "";
 
   const printToFile = async () => {
-    sharePDF(htmlContent);
+    // if (activitiesState.todayActivities) {
+    //   sharePDF(htmlContent)
+    //     .then((res) => {
+    //       console.log("succesxd: ", res);
+    //     })
+    //     .catch((err) => {
+    //       console.log("error puta: ", err);
+    //     });
+    // }
+
+    try {
+      // const file = await RNHTMLtoPDF.convert({
+      //   html: htmlContent,
+      //   fileName: "puta",
+      // });
+    } catch (error) {}
   };
 
   return (
     <View>
       <Pressable onPress={printToFile}>
-        <Text>Download Daily Report</Text>
+        <Text>Download Daily Report s</Text>
       </Pressable>
     </View>
   );

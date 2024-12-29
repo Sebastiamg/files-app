@@ -7,6 +7,7 @@ import { formStyles } from "../common/styles/styles";
 import { dateTime, useDateAndTime } from "../common/hooks/useDateAndTime";
 import { formatName } from "../utils/formatName";
 import { Activity } from "../common/interfaces/data.interface";
+import { useEffect } from "react";
 
 interface Props {
   componentType: dateTime;

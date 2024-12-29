@@ -1,8 +1,8 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Text, TouchableOpacity } from "react-native";
 
 import { activityActions } from "../common/reducers/dailyActiviry-reducer";
-import { ActivityContext } from "./contexts/ActivityContext";
+import { ActivityDispatchContext } from "./contexts/ActivityContext";
 import { ShowToast } from "../utils/showToast";
 import {
   getJsonData,
@@ -12,9 +12,10 @@ import {
 import { formStyles } from "../common/styles/styles";
 
 export default function SaveData() {
-  const [, activityDispatch] = useContext(ActivityContext);
+  const activityDispatch = useContext(ActivityDispatchContext);
 
   const saveData = () => {
+    console.log("caca");
     activityDispatch({ type: "save_in_db" });
     // resetJsonData();
     // activityDispatch({ type: "logfomdb" });

@@ -2,14 +2,18 @@ import { useContext } from "react";
 import { View, Text } from "react-native";
 
 import { formStyles } from "../common/styles/styles";
-import { ActivityContext } from "./contexts/ActivityContext";
 import DateComponent from "./DateComponent";
 import InputComponent from "./InputComponent";
 import SpeechInput from "./SpeechInput";
 import SaveData from "./SaveData";
+import {
+  ActivityDispatchContext,
+  ActivityStateContext,
+} from "./contexts/ActivityContext";
 
 export default function Form() {
-  const [activityState, activityDispatch] = useContext(ActivityContext);
+  const activityState = useContext(ActivityStateContext);
+  const activityDispatch = useContext(ActivityDispatchContext);
 
   return (
     <View style={formStyles.form__container}>

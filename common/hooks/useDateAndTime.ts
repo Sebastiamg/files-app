@@ -1,21 +1,23 @@
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 
 import { DateTimePickerEvent } from "@react-native-community/datetimepicker";
 
 import { formatDateAndTime } from "../../utils/formatDateTime";
 import { Activity } from "../interfaces/data.interface";
-import { ActivityContext } from "../../components/contexts/ActivityContext";
+import {
+  ActivityDispatchContext,
+  ActivityStateContext,
+} from "../../components/contexts/ActivityContext";
 
 export type dateTime = "date" | "time";
 
 type stateProps = { componentType: dateTime; componentTitle: keyof Activity };
 
 export function useDateAndTime({ componentType, componentTitle }: stateProps) {
-  const [activityState, activityDispatch] = useContext(ActivityContext);
+  const activityState = useContext(ActivityStateContext);
+  const activityDispatch = useContext(ActivityDispatchContext);
 
-  // const [dateOrTime, setDateOrTime] = useState<string>(
-  //   activityState[componentTitle] as string,
-  // );
+  // const [dateOrTime, setDateOrTime] = useState<string>(new Date().toString());
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   const dataTypeRef = useRef(componentType).current;
@@ -44,6 +46,7 @@ export function useDateAndTime({ componentType, componentTitle }: stateProps) {
 
   return {
     dateOrTime: activityState[componentTitle] as string,
+    // dateOrTime,
     showDateModal,
     changeDateOrTime,
     showDatePicker,

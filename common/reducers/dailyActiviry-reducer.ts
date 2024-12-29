@@ -41,9 +41,10 @@ export const activityReducer = (
       };
 
     case "add-any":
+      const { key, value } = action.payload;
       return {
         ...state,
-        [action.payload.key]: action.payload.value,
+        [key]: value,
       };
 
     case "reset-data":

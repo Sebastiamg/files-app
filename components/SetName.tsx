@@ -1,9 +1,9 @@
+import { useState } from "react";
 import { View, Text, TextInput, Pressable } from "react-native";
 
 import Icon from "react-native-vector-icons/Ionicons";
 
 import { setNameStyles } from "../common/styles/styles";
-import { useState } from "react";
 import { setJsonName } from "../services/json.service";
 import { formatName } from "../utils/formatName";
 import { ShowToast } from "../utils/showToast";

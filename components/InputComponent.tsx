@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { View, Text, Pressable, TextInput } from "react-native";
 
 import Icon from "react-native-vector-icons/Ionicons";
@@ -20,12 +20,12 @@ export default function InputComponent({
   activityDispatch,
   initialState,
 }: Props) {
-  // const [value, setValue] = useState<string>(initialState);
+  const [value, setValue] = useState<string>(initialState);
 
   const inputRef = useRef<TextInput>(null);
 
   const handleChange = (text: string) => {
-    // setValue(formatNumber(text));
+    setValue(formatNumber(text));
     activityDispatch({
       type: "add-any",
       payload: { key: componentTitle, value: formatNumber(text) },
@@ -33,15 +33,15 @@ export default function InputComponent({
   };
 
   const handleIconPress = () => {
-    // setValue("");
+    setValue("");
     inputRef.current?.focus();
   };
 
   const setInputValue = () => {
-    // activityDispatch({
-    //   type: "add-any",
-    //   payload: { key: componentTitle, value: formatNumber(value) },
-    // });
+    activityDispatch({
+      type: "add-any",
+      payload: { key: componentTitle, value: formatNumber(value) },
+    });
   };
 
   return (

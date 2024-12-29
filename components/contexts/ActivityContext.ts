@@ -5,6 +5,8 @@ import {
   initialActivityState,
 } from "../../common/reducers/dailyActiviry-reducer";
 
-export const ActivityContext = createContext<
-  [typeof initialActivityState, React.Dispatch<activityActions>]
->([initialActivityState, () => {}]);
+export const ActivityStateContext =
+  createContext<typeof initialActivityState>(initialActivityState);
+export const ActivityDispatchContext = createContext<
+  React.Dispatch<activityActions>
+>(() => {});

@@ -4,19 +4,31 @@ import { View, Text, ScrollView, FlatList } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 
 import { getJsonData } from "../services/json.service";
-import { ActivitiesContext } from "./contexts/ActivitiesContext";
+import {
+  ActivitiesStateContext,
+  ActivitiesDispatchContext,
+} from "./contexts/ActivitiesContext";
 import { Activity } from "../common/interfaces/data.interface";
 import { formatName } from "../utils/formatName";
 import { listStyles } from "../common/styles/styles";
 
 export default function ActivityList() {
-  const [state, dispatch] = useContext(ActivitiesContext);
+  const activitiesState = useContext(ActivitiesStateContext);
+  const activitiesDispatch = useContext(ActivitiesDispatchContext);
 
   useEffect(() => {
+    console.log("dios mio");
+  }, []);
+
+  useEffect(() => {
+    console.log(Math.random());
     getJsonData().then(({ activities }) => {
-      dispatch({ type: "set-activities-from-db", payload: { activities } });
+      activitiesDispatch({
+        type: "set-activities-from-db",
+        payload: { activities },
+      });
     });
-  }, [state]);
+  }, []);
 
   const activityKeys: (keyof Activity)[] = [
     "date",
@@ -75,7 +87,7 @@ export default function ActivityList() {
 
   return (
     <ScrollView horizontal={true} style={listStyles.horizontalScroll}>
-      {state.todayActivities && (
+      {activitiesState.todayActivities && (
         <View>
           <Text style={listStyles.title}>Today Activities</Text>
           {/* Encabezado de la tabla */}
@@ -96,7 +108,7 @@ export default function ActivityList() {
 
           {/* Cuerpo de la tabla */}
           <FlatList
-            data={state.todayActivities}
+            data={activitiesState.todayActivities}
             keyExtractor={(item) => item.id}
             renderItem={renderRow}
           />

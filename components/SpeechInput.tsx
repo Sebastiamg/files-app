@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { View, Text, Pressable, TextInput } from "react-native";
 
 import Icon from "react-native-vector-icons/Ionicons";
@@ -10,14 +10,18 @@ import {
   ExpoSpeechRecognitionModule,
   useSpeechRecognitionEvent,
 } from "expo-speech-recognition";
-import { ActivityContext } from "./contexts/ActivityContext";
+import {
+  ActivityStateContext,
+  ActivityDispatchContext,
+} from "./contexts/ActivityContext";
 
 interface Props {
   componentTitle: keyof Activity;
 }
 
 export default function SpeechInput({ componentTitle }: Props) {
-  const [activityState, activityDispatch] = useContext(ActivityContext);
+  const activityState = useContext(ActivityStateContext);
+  const activityDispatch = useContext(ActivityDispatchContext);
 
   // const [speechedValue, setSpeechedValue] = useState<string>(
   //   activityState[componentTitle] as string,

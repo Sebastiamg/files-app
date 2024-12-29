@@ -5,6 +5,9 @@ import {
   initialActivitiesState,
 } from "../../common/reducers/activities-reducer";
 
-export const ActivitiesContext = createContext<
-  [typeof initialActivitiesState, React.Dispatch<activitiesActions>]
->([initialActivitiesState, () => {}]);
+export const ActivitiesStateContext = createContext<
+  typeof initialActivitiesState
+>(initialActivitiesState);
+export const ActivitiesDispatchContext = createContext<
+  React.Dispatch<activitiesActions>
+>(() => {});
