@@ -2,24 +2,36 @@ import { useContext, useEffect } from "react";
 import { Text, TouchableOpacity } from "react-native";
 
 import { activityActions } from "../common/reducers/dailyActiviry-reducer";
-import { ActivityDispatchContext } from "./contexts/ActivityContext";
+import {
+  ActivityDispatchContext,
+  ActivityStateContext,
+} from "./contexts/ActivityContext";
 import { ShowToast } from "../utils/showToast";
 import {
+  downloadJsonFile,
   getJsonData,
   resetJsonData,
   storeJsonData,
 } from "../services/json.service";
 import { formStyles } from "../common/styles/styles";
+import { ActivitiesDispatchContext } from "./contexts/ActivitiesContext";
 
 export default function SaveData() {
   const activityDispatch = useContext(ActivityDispatchContext);
+  const activityState = useContext(ActivityStateContext);
+  const activitiesDispatch = useContext(ActivitiesDispatchContext);
 
+  const reset = false;
   const saveData = () => {
-    console.log("caca");
-    activityDispatch({ type: "save_in_db" });
-    // resetJsonData();
-    // activityDispatch({ type: "logfomdb" });
-    // ShowToast("Input de mensaje debe ser puesto", "success");
+    if (reset) {
+      resetJsonData();
+    } else {
+      activityDispatch({ type: "save_in_db" });
+      activitiesDispatch({
+        type: "update-today-activities",
+        payload: { activity: activityState },
+      });
+    }
   };
 
   return (

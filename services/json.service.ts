@@ -1,5 +1,6 @@
 import uuid from "react-native-uuid";
 import * as FileSystem from "expo-file-system";
+import * as Sharing from "expo-sharing";
 
 import { Activity, Data } from "../common/interfaces/data.interface";
 import { ShowToast } from "../utils/showToast";
@@ -45,6 +46,23 @@ export async function getJsonData(): Promise<Data> {
   }
 }
 
+// -------------------- Donwload JSON file
+export async function downloadJsonFile() {
+  try {
+    if (await Sharing.isAvailableAsync()) {
+      await Sharing.shareAsync(fileUri);
+    } else {
+      throw new Error("Sharing is not available on this device");
+    }
+    ShowToast("JSON data donwnloaded", "success");
+    return true;
+  } catch (error) {
+    const err = error as { message: string };
+    ShowToast(err.message, "danger");
+    return false;
+  }
+}
+
 // -------------------- Set main name
 export async function setJsonName(name: string) {
   const jsonData = await getJsonData();
@@ -52,35 +70,40 @@ export async function setJsonName(name: string) {
   try {
     await FileSystem.writeAsStringAsync(fileUri, payload);
 
-    // ShowToast(`${name}: Successfull name changed`, "success");
-    return `${name}: Cambio de nombre exitoso`;
+    return `${name}: Name changed successfully`;
   } catch (error) {
-    console.error("No hubo archivo, así que se creó", error);
+    console.log(error);
+    return "Error  changing name";
   }
 }
 
 // -------------------- Save activity in JSON
 export const storeJsonData = async (activity: Activity) => {
-  const { activities, name } = await getJsonData();
+  const { activities, ...jsonData } = await getJsonData();
 
   const emptyDate = activities[activity.date] === undefined;
 
   try {
-    const jsonData: Data = {
-      name,
+    const jsonDataPayload: Data = {
+      ...jsonData,
       activities: {
         ...activities,
         [activity.date]: emptyDate
-          ? [{ ...activity, id: uuid.v4() }]
-          : [...activities[activity.date], { ...activity, id: uuid.v4() }],
+          ? [{ ...activity }]
+          : [...activities[activity.date], { ...activity }],
       },
     };
 
-    await FileSystem.writeAsStringAsync(fileUri, JSON.stringify(jsonData));
+    await FileSystem.writeAsStringAsync(
+      fileUri,
+      JSON.stringify(jsonDataPayload),
+    );
+
     ShowToast("Activity saved", "success");
+
     return jsonData;
   } catch (error) {
-    ShowToast(`${error}`, "warning");
+    ShowToast(`${error}`, "danger");
     console.error(error);
   }
 };

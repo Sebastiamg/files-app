@@ -1,11 +1,16 @@
-import { View, Text } from "react-native";
+import { View, Text, Pressable } from "react-native";
 
 import { headerStyles } from "../../common/styles/styles";
 import SetName from "../SetName";
+import { downloadJsonFile } from "../../services/json.service";
 
 interface Props {
   ownerName: string;
   setOwnerName: React.Dispatch<React.SetStateAction<string>>;
+}
+
+function donwnloadData() {
+  downloadJsonFile();
 }
 
 export default function Header({ ownerName, setOwnerName }: Props) {
@@ -14,7 +19,12 @@ export default function Header({ ownerName, setOwnerName }: Props) {
       <Text style={headerStyles.header__title}>Actividades de Producción</Text>
       <View style={headerStyles.header__names__container}>
         <Text style={headerStyles.header__owner}>{ownerName}</Text>
-        <Text style={headerStyles.header__developer}>Michael Ortiz</Text>
+        <Pressable
+          onPress={donwnloadData}
+          style={headerStyles.header__developer}
+        >
+          <Text style={headerStyles.header__developer__title}>Alpha V1</Text>
+        </Pressable>
       </View>
       <SetName setOwnerName={setOwnerName} ownerName={ownerName} />
     </View>

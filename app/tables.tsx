@@ -1,11 +1,12 @@
-import { View, Text } from "react-native";
+import { View, Text, ScrollView } from "react-native";
+import ActivityList from "../components/ActivityList";
+import CreateTodayPdf from "../components/CreateTodayPdf";
 
-export default function tables() {
+export default function Tables() {
   return (
-    <View>
-      {Array.from({ length: 100 }).map((_, i) => {
-        return <Text key={i}>----------------------------------- {i}</Text>;
-      })}
-    </View>
+    <ScrollView>
+      <CreateTodayPdf />
+      <ActivityList />
+    </ScrollView>
   );
 }

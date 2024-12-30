@@ -27,7 +27,7 @@ import {
 } from "../components/contexts/ActivitiesContext";
 
 export default function Layout() {
-  const [ownerName, setOwnerName] = useState<string>("No name");
+  const [ownerName, setOwnerName] = useState<string>("");
 
   const [activityState, activityDispatch] = useReducer(
     activityReducer,
@@ -40,6 +40,7 @@ export default function Layout() {
 
   useEffect(() => {
     getJsonData().then((data) => {
+      console.log("caca: ", data);
       setOwnerName(data.name.length ? data.name : ownerName);
     });
   }, []);

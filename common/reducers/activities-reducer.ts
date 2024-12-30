@@ -9,6 +9,10 @@ export type activitiesActions =
     }
   | {
       type: "get-today-activities";
+    }
+  | {
+      type: "update-today-activities";
+      payload: { activity: Activity };
     };
 
 type initialState = {
@@ -47,6 +51,14 @@ export const activitiesReducer = (
         ...state,
         todayActivities: TODAY_ACTIVITIES,
       };
+
+    case "update-today-activities":
+      // pendiente para la tabla en la misma pestaña del formulario
+      return state;
+    // return {
+    // ...state,
+    // todayActivities: [...state.todayActivities, action.payload.activity],
+    // };
 
     default:
       return {

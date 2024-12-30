@@ -2,7 +2,8 @@ import { shareAsync, isAvailableAsync } from "expo-sharing";
 import RNHTMLtoPDF from "react-native-html-to-pdf";
 import { ShowToast } from "../utils/showToast";
 
-import * as FileSystemNext from "expo-file-system/next";
+import { getJsonData } from "./json.service";
+import { formatDateAndTime } from "../utils/formatDateTime";
 
 export async function sharePDF(html: string) {
   try {
@@ -10,9 +11,11 @@ export async function sharePDF(html: string) {
       throw new Error("Invalid or empty HTML");
     }
 
+    const { name } = await getJsonData();
+
     let options = {
-      html: "<h1>hola putas</h1>",
-      fileName: "test",
+      html,
+      fileName: `${formatDateAndTime(new Date().toString(), "date")}_${name}_Daily_Report`,
     };
 
     const file = await RNHTMLtoPDF.convert(options);

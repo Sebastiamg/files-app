@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { View, Text, TextInput, Pressable } from "react-native";
+import { useEffect, useState } from "react";
+import { View, Text, TextInput, Pressable, Keyboard } from "react-native";
 
 import Icon from "react-native-vector-icons/Ionicons";
 
@@ -18,11 +18,10 @@ export default function SetName({ setOwnerName, ownerName }: Props) {
 
   function defineOwnerAndDisableInput() {
     setJsonName(formatName(ownerName))
-      .then((data) => {
-        console.log(data);
-        ShowToast("Name changed successfully", "success");
+      .then((msj) => {
+        ShowToast(msj as string, "success");
       })
-      .catch((err) => ShowToast("Error changing name", "danger"));
+      .catch((err) => ShowToast(err, "danger"));
     setEditableInput(false);
   }
 
@@ -39,7 +38,9 @@ export default function SetName({ setOwnerName, ownerName }: Props) {
   }
 
   function handleEndEditing() {
-    defineOwnerAndDisableInput();
+    if (editableInput) {
+      defineOwnerAndDisableInput();
+    }
   }
 
   return (

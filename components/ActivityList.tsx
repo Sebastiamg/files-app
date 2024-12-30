@@ -11,17 +11,21 @@ import {
 import { Activity } from "../common/interfaces/data.interface";
 import { formatName } from "../utils/formatName";
 import { listStyles } from "../common/styles/styles";
+import { ActivityStateContext } from "./contexts/ActivityContext";
 
 export default function ActivityList() {
   const activitiesState = useContext(ActivitiesStateContext);
   const activitiesDispatch = useContext(ActivitiesDispatchContext);
 
-  useEffect(() => {
-    console.log("dios mio");
-  }, []);
+  const activityState = useContext(ActivityStateContext);
+
+  // useEffect(() => {
+  //   console.log("dios mio");
+  // }, []);
 
   useEffect(() => {
-    console.log(Math.random());
+    console.log("vegetta");
+
     getJsonData().then(({ activities }) => {
       activitiesDispatch({
         type: "set-activities-from-db",

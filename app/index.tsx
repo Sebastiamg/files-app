@@ -2,14 +2,14 @@ import { View } from "react-native";
 
 import ActivityList from "../components/ActivityList";
 import Form from "../components/Form";
-import CreatePdf from "../components/CreatePdf";
+import CreateTodayPdf from "../components/CreateTodayPdf";
 
 export default function Index() {
   return (
     <View>
       <Form />
-      <CreatePdf />
-      <ActivityList />
+      {/* <CreateTodayPdf /> */}
+      {/* <ActivityList /> */}
     </View>
   );
 }

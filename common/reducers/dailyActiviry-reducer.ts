@@ -1,3 +1,5 @@
+import uuid from "react-native-uuid";
+
 import { getJsonData, storeJsonData } from "../../services/json.service";
 import { formatDateAndTime } from "../../utils/formatDateTime";
 import { formatName } from "../../utils/formatName";
@@ -5,14 +7,9 @@ import { ShowToast } from "../../utils/showToast";
 import { Activity } from "../interfaces/data.interface";
 
 export type activityActions =
-  | {
-      type: "add-date";
-      payload: { date: string };
-    }
   | { type: "add-any"; payload: { key: keyof Activity; value: string } }
   | { type: "reset-data" }
   | { type: "log-state" }
-  | { type: "logfomdb" }
   // db methods
   | { type: "save_in_db" };
 
@@ -34,12 +31,6 @@ export const activityReducer = (
   action: activityActions,
 ) => {
   switch (action.type) {
-    case "add-date":
-      return {
-        ...state,
-        date: action.payload.date,
-      };
-
     case "add-any":
       const { key, value } = action.payload;
       return {
@@ -48,20 +39,12 @@ export const activityReducer = (
       };
 
     case "reset-data":
-      console.log("Data reseted...");
       return initialActivityState;
 
     case "log-state":
       for (let [key, value] of Object.entries(state)) {
         console.log(key, "->", value);
       }
-
-    case "logfomdb":
-      getJsonData().then((res) => {
-        console.log(res);
-      });
-
-      return state;
 
     case "save_in_db":
       const skipStrings: (keyof Activity)[] = [
@@ -70,6 +53,9 @@ export const activityReducer = (
         "pause",
         "restart",
       ];
+
+      // set id
+      state.id = uuid.v4();
 
       try {
         for (
@@ -84,10 +70,18 @@ export const activityReducer = (
             throw new Error(`${formatName(key)} is Empty`);
           }
         }
+        // validate pause and restart
+        if (state.pause!.length > 1 && state.restart!.length < 1)
+          throw new Error("Restart hour is missing");
 
+        if (state.restart!.length > 1 && state.pause!.length < 1)
+          throw new Error("Pause hour is missing");
+
+        // Save in JSON
         storeJsonData(state).then((res) => {
           state = initialActivityState;
         });
+
         return initialActivityState;
       } catch (err: unknown) {
         const { message } = err as { message: string };

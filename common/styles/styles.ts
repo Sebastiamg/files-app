@@ -53,14 +53,16 @@ export const headerStyles = StyleSheet.create({
     textAlign: "center",
   },
   header__developer: {
+    flex: 0.5,
+    borderLeftWidth: 2,
+    borderLeftColor: "#3b3b3b",
+  },
+  header__developer__title: {
     color: colors.text_secondary,
     fontSize: 20,
     fontWeight: "bold",
-    paddingVertical: 5,
-    flex: 0.5,
     textAlign: "center",
-    borderLeftWidth: 2,
-    borderLeftColor: "#3b3b3b",
+    paddingVertical: 5,
   },
 });
 
@@ -333,5 +335,20 @@ export const listStyles = StyleSheet.create({
   },
   zebraRow: {
     backgroundColor: colors.disable,
+  },
+});
+
+export const buttonsStyles = StyleSheet.create({
+  main_donwnload: {
+    width: "100%",
+    padding: 10,
+    borderWidth: 1,
+    borderRadius: 5,
+    backgroundColor: colors.paynesGray,
+  },
+  main_donwnload_text: {
+    textAlign: "center",
+    fontWeight: "bold",
+    textDecorationColor: "white",
   },
 });
