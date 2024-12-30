@@ -27,7 +27,7 @@ const colors = {
 
 export const headerStyles = StyleSheet.create({
   header: {
-    // backgroundColor: colors.primary,
+    backgroundColor: "white",
   },
   header__title: {
     color: colors.text,

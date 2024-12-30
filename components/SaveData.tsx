@@ -1,18 +1,10 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { Text, TouchableOpacity } from "react-native";
 
-import { activityActions } from "../common/reducers/dailyActiviry-reducer";
 import {
   ActivityDispatchContext,
   ActivityStateContext,
 } from "./contexts/ActivityContext";
-import { ShowToast } from "../utils/showToast";
-import {
-  downloadJsonFile,
-  getJsonData,
-  resetJsonData,
-  storeJsonData,
-} from "../services/json.service";
 import { formStyles } from "../common/styles/styles";
 import { ActivitiesDispatchContext } from "./contexts/ActivitiesContext";
 
@@ -21,17 +13,12 @@ export default function SaveData() {
   const activityState = useContext(ActivityStateContext);
   const activitiesDispatch = useContext(ActivitiesDispatchContext);
 
-  const reset = false;
   const saveData = () => {
-    if (reset) {
-      resetJsonData();
-    } else {
-      activityDispatch({ type: "save_in_db" });
-      activitiesDispatch({
-        type: "update-today-activities",
-        payload: { activity: activityState },
-      });
-    }
+    activityDispatch({ type: "save_in_db" });
+    activitiesDispatch({
+      type: "update-today-activities",
+      payload: { activity: activityState },
+    });
   };
 
   return (

@@ -16,7 +16,7 @@ export interface Data {
   activities: Day;
 }
 
-const xd: Data = {
+export const testObject: Data = {
   name: "Maria Jarrin",
   activities: {
     "20-12-2024": [

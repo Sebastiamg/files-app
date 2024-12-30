@@ -55,11 +55,6 @@ export const activitiesReducer = (
     case "update-today-activities":
       // pendiente para la tabla en la misma pestaña del formulario
       return state;
-    // return {
-    // ...state,
-    // todayActivities: [...state.todayActivities, action.payload.activity],
-    // };
-
     default:
       return {
         ...state,

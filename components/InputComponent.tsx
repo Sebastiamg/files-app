@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { View, Text, Pressable, TextInput } from "react-native";
 
 import Icon from "react-native-vector-icons/Ionicons";

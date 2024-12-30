@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useReducer, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { View, ScrollView } from "react-native";
 import { Slot } from "expo-router";
 

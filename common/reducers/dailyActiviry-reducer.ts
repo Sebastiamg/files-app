@@ -1,6 +1,6 @@
 import uuid from "react-native-uuid";
 
-import { getJsonData, storeJsonData } from "../../services/json.service";
+import { storeJsonData } from "../../services/json.service";
 import { formatDateAndTime } from "../../utils/formatDateTime";
 import { formatName } from "../../utils/formatName";
 import { ShowToast } from "../../utils/showToast";

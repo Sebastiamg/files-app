@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { View, Text, TextInput, Pressable, Keyboard } from "react-native";
+import { useState } from "react";
+import { View, Text, TextInput, Pressable } from "react-native";
 
 import Icon from "react-native-vector-icons/Ionicons";
 

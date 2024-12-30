@@ -1,23 +1,13 @@
-import { useContext, useEffect, useMemo } from "react";
+import { useContext } from "react";
 import { Pressable, Text, View } from "react-native";
 
-import {
-  ActivitiesDispatchContext,
-  ActivitiesStateContext,
-} from "./contexts/ActivitiesContext";
+import { ActivitiesStateContext } from "./contexts/ActivitiesContext";
 import { sharePDF } from "../services/pdf.service";
 
-import RNHTMLtoPDF from "react-native-html-to-pdf";
-import { initialActivitiesState } from "../common/reducers/activities-reducer";
-import { getJsonData } from "../services/json.service";
-import { ActivityStateContext } from "./contexts/ActivityContext";
 import { buttonsStyles } from "../common/styles/styles";
 
 export default function CreateTodayPdf() {
   const { todayActivities } = useContext(ActivitiesStateContext);
-  const activitiesDispatch = useContext(ActivitiesDispatchContext);
-
-  const activityState = useContext(ActivityStateContext);
 
   const spanishHtmlContent = todayActivities
     ? `

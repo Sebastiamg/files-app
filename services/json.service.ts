@@ -1,4 +1,3 @@
-import uuid from "react-native-uuid";
 import * as FileSystem from "expo-file-system";
 import * as Sharing from "expo-sharing";
 

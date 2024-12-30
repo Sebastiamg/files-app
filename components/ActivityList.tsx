@@ -1,8 +1,6 @@
 import { useContext, useEffect } from "react";
 import { View, Text, ScrollView, FlatList } from "react-native";
 
-import Icon from "react-native-vector-icons/Ionicons";
-
 import { getJsonData } from "../services/json.service";
 import {
   ActivitiesStateContext,
@@ -11,17 +9,10 @@ import {
 import { Activity } from "../common/interfaces/data.interface";
 import { formatName } from "../utils/formatName";
 import { listStyles } from "../common/styles/styles";
-import { ActivityStateContext } from "./contexts/ActivityContext";
 
 export default function ActivityList() {
   const activitiesState = useContext(ActivitiesStateContext);
   const activitiesDispatch = useContext(ActivitiesDispatchContext);
-
-  const activityState = useContext(ActivityStateContext);
-
-  // useEffect(() => {
-  //   console.log("dios mio");
-  // }, []);
 
   useEffect(() => {
     console.log("vegetta");

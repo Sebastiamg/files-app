@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { View, Text, Pressable, TextInput } from "react-native";
 
 import Icon from "react-native-vector-icons/Ionicons";
@@ -30,18 +30,12 @@ export default function SpeechInput({ componentTitle }: Props) {
   const [speechError, setSpeechError] = useState<string>("");
 
   useSpeechRecognitionEvent("start", () => {
-    // setSpeechedValue("");
     setIsRecording(true);
   });
   useSpeechRecognitionEvent("end", (e) => {
     setIsRecording(false);
-    // activityDispatch({
-    //   type: "add-any",
-    //   payload: { key: componentTitle, value: formatName(speechedValue, true) },
-    // });
   });
   useSpeechRecognitionEvent("result", (event) => {
-    // setSpeechedValue(event.results[0]?.transcript);
     activityDispatch({
       type: "add-any",
       payload: {
@@ -56,7 +50,6 @@ export default function SpeechInput({ componentTitle }: Props) {
   });
 
   const handleChange = (text: string) => {
-    // setSpeechedValue(text);
     activityDispatch({
       type: "add-any",
       payload: { key: componentTitle, value: formatName(text, true) },
@@ -69,6 +62,7 @@ export default function SpeechInput({ componentTitle }: Props) {
       console.warn("Permissions not granted", result);
       return;
     }
+
     // Start speech recognition
     ExpoSpeechRecognitionModule.start({
       lang: "es-Mx",
@@ -97,10 +91,8 @@ export default function SpeechInput({ componentTitle }: Props) {
         ]}
         multiline
         numberOfLines={10}
-        // value={formatName(speechedValue, true)}
         value={formatName(activityState.details, true)}
         onChangeText={handleChange}
-        // onTouchEnd={(e) => e.currentTarget.blur()}
         keyboardType="url"
       />
       <Pressable
