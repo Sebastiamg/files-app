@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { View, Text, Pressable, TextInput } from "react-native";
 
 import Icon from "react-native-vector-icons/Ionicons";
@@ -8,6 +8,7 @@ import { Activity } from "../common/interfaces/data.interface";
 import { formStyles, inputStyles } from "../common/styles/styles";
 import { formatName } from "../utils/formatName";
 import { formatNumber } from "../utils/formatNumbres";
+import { getActivityEntrie } from "../services/asyncStorage.service";
 
 interface Props {
   componentTitle: keyof Activity;
@@ -23,6 +24,20 @@ export default function InputComponent({
   const [value, setValue] = useState<string>(initialState);
 
   const inputRef = useRef<TextInput>(null);
+
+  useEffect(() => {
+    getActivityEntrie(componentTitle).then((data) => {
+      if (data) {
+        activityDispatch({
+          type: "add-any",
+          payload: {
+            key: componentTitle,
+            value: data,
+          },
+        });
+      }
+    });
+  }, []);
 
   const handleChange = (text: string) => {
     setValue(formatNumber(text));

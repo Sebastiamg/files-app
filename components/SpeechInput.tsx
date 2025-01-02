@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { View, Text, Pressable, TextInput } from "react-native";
 
 import Icon from "react-native-vector-icons/Ionicons";
@@ -14,6 +14,7 @@ import {
   ActivityStateContext,
   ActivityDispatchContext,
 } from "./contexts/ActivityContext";
+import { getActivityEntrie } from "../services/asyncStorage.service";
 
 interface Props {
   componentTitle: keyof Activity;
@@ -29,18 +30,35 @@ export default function SpeechInput({ componentTitle }: Props) {
   const [isRecording, setIsRecording] = useState<boolean>(false);
   const [speechError, setSpeechError] = useState<string>("");
 
+  useEffect(() => {
+    getActivityEntrie(componentTitle).then((data) => {
+      if (data) {
+        activityDispatch({
+          type: "add-any",
+          payload: {
+            key: componentTitle,
+            value: data,
+          },
+        });
+      }
+    });
+  }, []);
+
   useSpeechRecognitionEvent("start", () => {
     setIsRecording(true);
   });
+
   useSpeechRecognitionEvent("end", (e) => {
     setIsRecording(false);
   });
+
   useSpeechRecognitionEvent("result", (event) => {
     activityDispatch({
       type: "add-any",
       payload: {
         key: componentTitle,
         value: formatName(event.results[0]?.transcript, true),
+        // value: event.results[0]?.transcript,
       },
     });
   });
@@ -52,7 +70,8 @@ export default function SpeechInput({ componentTitle }: Props) {
   const handleChange = (text: string) => {
     activityDispatch({
       type: "add-any",
-      payload: { key: componentTitle, value: formatName(text, true) },
+      // payload: { key: componentTitle, value: formatName(text, true) },
+      payload: { key: componentTitle, value: text },
     });
   };
 
@@ -91,7 +110,8 @@ export default function SpeechInput({ componentTitle }: Props) {
         ]}
         multiline
         numberOfLines={10}
-        value={formatName(activityState.details, true)}
+        // value={formatName(activityState.details, true)}
+        value={activityState.details}
         onChangeText={handleChange}
         keyboardType="url"
       />

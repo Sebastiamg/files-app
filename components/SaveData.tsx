@@ -7,6 +7,7 @@ import {
 } from "./contexts/ActivityContext";
 import { formStyles } from "../common/styles/styles";
 import { ActivitiesDispatchContext } from "./contexts/ActivitiesContext";
+import { resetJsonData } from "../services/json.service";
 
 export default function SaveData() {
   const activityDispatch = useContext(ActivityDispatchContext);
@@ -21,10 +22,14 @@ export default function SaveData() {
     });
   };
 
+  const saveData1 = () => {
+    resetJsonData();
+  };
+
   return (
     <TouchableOpacity
       style={[formStyles.form__save__data__container]}
-      onPressIn={saveData}
+      onPress={saveData}
     >
       <Text style={[formStyles.form__save__data__title]}>Save Data</Text>
     </TouchableOpacity>

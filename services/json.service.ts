@@ -4,6 +4,7 @@ import * as Sharing from "expo-sharing";
 import { Activity, Data } from "../common/interfaces/data.interface";
 import { ShowToast } from "../utils/showToast";
 import jsonBase from "../jsonbase.json";
+import sortActivities from "../utils/sortActivities";
 
 const fileUri = FileSystem.documentDirectory + "data.json";
 
@@ -24,10 +25,10 @@ export async function resetJsonData(): Promise<boolean> {
 export async function deleteJsonFile(): Promise<boolean> {
   try {
     await FileSystem.deleteAsync(fileUri);
-    console.log("File has been deleted");
+    ShowToast("File has been deleted", "success");
     return true;
   } catch (error) {
-    console.error("Error deleting file:", error);
+    ShowToast("Error deleting file:" + error, "danger");
     return false;
   }
 }
@@ -71,25 +72,37 @@ export async function setJsonName(name: string) {
 
     return `${name}: Name changed successfully`;
   } catch (error) {
+    return "Error changing name" + error;
+  }
+}
+
+// -------------------- Get main name
+export async function getJsonName(): Promise<string> {
+  try {
+    const jsonData = await FileSystem.readAsStringAsync(fileUri);
+    const data: Data = JSON.parse(jsonData);
+    return data.name;
+  } catch (error) {
+    await FileSystem.writeAsStringAsync(fileUri, JSON.stringify(jsonBase));
     console.log(error);
-    return "Error  changing name";
+    return "No name";
   }
 }
 
 // -------------------- Save activity in JSON
 export const storeJsonData = async (activity: Activity) => {
-  const { activities, ...jsonData } = await getJsonData();
-
-  const emptyDate = activities[activity.date] === undefined;
-
   try {
+    const { activities, ...jsonData } = await getJsonData();
+
+    const emptyDate = activities[activity.date] === undefined;
+
     const jsonDataPayload: Data = {
       ...jsonData,
       activities: {
         ...activities,
         [activity.date]: emptyDate
           ? [{ ...activity }]
-          : [...activities[activity.date], { ...activity }],
+          : sortActivities([...activities[activity.date], { ...activity }]),
       },
     };
 
@@ -101,6 +114,35 @@ export const storeJsonData = async (activity: Activity) => {
     ShowToast("Activity saved", "success");
 
     return jsonData;
+  } catch (error) {
+    ShowToast(`${error}`, "danger");
+    console.error(error);
+  }
+};
+
+export const deleteActivityFromJsonData = async (
+  activityDate: string,
+  activityId: string,
+) => {
+  try {
+    const jsonData = await getJsonData();
+    const jsonActivities = jsonData.activities;
+    const activitiesDay = jsonActivities[activityDate];
+
+    const newActivities = activitiesDay.filter((activity) => {
+      return activity.id !== activityId;
+    });
+
+    const newJsonData = {
+      ...jsonData,
+      activities: {
+        ...jsonActivities,
+        [activityDate]: newActivities,
+      },
+    };
+
+    await FileSystem.writeAsStringAsync(fileUri, JSON.stringify(newJsonData));
+    ShowToast("Activity deleted", "success");
   } catch (error) {
     ShowToast(`${error}`, "danger");
     console.error(error);

@@ -9,10 +9,16 @@ export function formatDateAndTime(
 
   let valueToDate = new Date(value);
 
+  function checkLength(value: string | number) {
+    if (value.toString().length === 1) return `0${value}`;
+
+    return value;
+  }
+
   if (type === "date") {
     // return valueToDate.toISOString().split("T")[0].split("-").join("-");
-    return `${valueToDate.getFullYear()}-${valueToDate.getMonth() + 1}-${valueToDate.getDate()}`;
+    return `${valueToDate.getFullYear()}-${checkLength(valueToDate.getMonth() + 1)}-${checkLength(valueToDate.getDate())}`;
   } else {
-    return `${valueToDate.getHours()}:${valueToDate.getMinutes().toString().length === 1 ? "0" + valueToDate.getMinutes() : valueToDate.getMinutes()}`;
+    return `${valueToDate.getHours()}:${checkLength(valueToDate.getMinutes())}`;
   }
 }

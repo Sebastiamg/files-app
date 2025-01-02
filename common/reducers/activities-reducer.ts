@@ -13,6 +13,10 @@ export type activitiesActions =
   | {
       type: "update-today-activities";
       payload: { activity: Activity };
+    }
+  | {
+      type: "update-activities-after-removing";
+      payload: { activityId: string };
     };
 
 type initialState = {
@@ -33,7 +37,7 @@ export const activitiesReducer = (
     new Date(new Date().toDateString()),
     "date",
   );
-
+  let updatedActivities;
   switch (action.type) {
     case "set-activities-from-db":
       return {
@@ -53,8 +57,21 @@ export const activitiesReducer = (
       };
 
     case "update-today-activities":
-      // pendiente para la tabla en la misma pestaña del formulario
-      return state;
+      updatedActivities = [...state.todayActivities, action.payload.activity];
+      return {
+        ...state,
+        todayActivities: updatedActivities,
+      };
+
+    case "update-activities-after-removing":
+      updatedActivities = state.todayActivities.filter((activity) => {
+        return activity.id !== action.payload.activityId;
+      });
+      return {
+        ...state,
+        todayActivities: updatedActivities,
+      };
+
     default:
       return {
         ...state,

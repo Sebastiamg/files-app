@@ -28,6 +28,7 @@ const colors = {
 export const headerStyles = StyleSheet.create({
   header: {
     backgroundColor: "white",
+    width: "100%",
   },
   header__title: {
     color: colors.text,
@@ -114,7 +115,6 @@ export const navStyles = StyleSheet.create({
     width: "100%",
     flexDirection: "row",
     alignContent: "center",
-    alignItems: "stretch",
     gap: 2,
     backgroundColor: colors.text_3,
   },
@@ -123,8 +123,7 @@ export const navStyles = StyleSheet.create({
     textAlign: "center",
     height: "auto",
     backgroundColor: colors.disable,
-
-    borderRadius: 5,
+    // borderRadius: 5,
   },
   navBar__button__pressed: {
     elevation: 10,
@@ -141,11 +140,16 @@ export const navStyles = StyleSheet.create({
 
 export const layoutStyles = StyleSheet.create({
   main__container: {
-    position: "relative",
     flex: 1,
+    gap: 1,
+    flexDirection: "column",
   },
   scroll__container: {
+    // padding: 10,
+  },
+  scroll__content__container: {
     height: "auto",
+    flexGrow: 1,
     padding: 10,
   },
 });
@@ -153,11 +157,13 @@ export const layoutStyles = StyleSheet.create({
 export const formStyles = StyleSheet.create({
   form__container: {
     borderBlockColor: "black",
+    width: "100%",
+    height: "auto",
     borderWidth: 1,
     borderRadius: 5,
-    width: "100%",
     padding: 3,
     gap: 3,
+    // backgroundColor: "red",
   },
   form__title: {
     fontSize: 20,
@@ -220,6 +226,7 @@ export const formStyles = StyleSheet.create({
   },
 
   form__save__data__container: {
+    marginTop: 10,
     padding: 10,
     backgroundColor: colors.orangeCrayola,
     borderRadius: 5,

@@ -40,7 +40,6 @@ export default function Layout() {
 
   useEffect(() => {
     getJsonData().then((data) => {
-      console.log("caca: ", data);
       setOwnerName(data.name.length ? data.name : ownerName);
     });
   }, []);
@@ -60,7 +59,12 @@ export default function Layout() {
                 }
               >
                 <Header ownerName={ownerName} setOwnerName={setOwnerName} />
-                <ScrollView style={layoutStyles.scroll__container}>
+                <ScrollView
+                  style={layoutStyles.scroll__container}
+                  contentContainerStyle={[
+                    layoutStyles.scroll__content__container,
+                  ]}
+                >
                   <Slot />
                 </ScrollView>
                 <NavBar />

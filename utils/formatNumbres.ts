@@ -1,6 +1,16 @@
 export function formatNumber(num: string | number) {
-  return num
-    .toString()
-    .substring(num.toString().charAt(0) === "0" ? 1 : 0)
-    .replace(/[^0-9]/g, "");
+  if (num) {
+    return num
+      .toString()
+      .substring(
+        num.toString().charAt(0) === "0"
+          ? Boolean(num.toString().charAt(1))
+            ? 1
+            : 0
+          : 0,
+      )
+      .replace(/[^0-9]/g, "");
+  } else {
+    return "0";
+  }
 }

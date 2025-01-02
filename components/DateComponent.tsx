@@ -7,6 +7,7 @@ import { formStyles } from "../common/styles/styles";
 import { dateTime, useDateAndTime } from "../common/hooks/useDateAndTime";
 import { formatName } from "../utils/formatName";
 import { Activity } from "../common/interfaces/data.interface";
+import { useState } from "react";
 
 interface Props {
   componentType: dateTime;
@@ -24,14 +25,19 @@ export default function DateComponent({
     changeDateOrTime,
     dataTypeRef,
     iconRef,
+    resetWithLongPress,
   } = useDateAndTime({ componentType, componentTitle });
 
   return (
     <View style={[formStyles.form__date__container]}>
       <Text style={[formStyles.form__date__title]}>
-        {formatName(componentTitle)}:
+        {formatName(componentTitle)}
       </Text>
-      <Text style={[formStyles.form__date__input]} children={dateOrTime} />
+      <Text
+        style={[formStyles.form__date__input]}
+        children={dateOrTime}
+        onLongPress={resetWithLongPress}
+      />
       <Pressable style={[formStyles.form__date__icon]} onPress={showDateModal}>
         <Icon
           name={iconRef}

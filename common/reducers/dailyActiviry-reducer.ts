@@ -5,6 +5,10 @@ import { formatDateAndTime } from "../../utils/formatDateTime";
 import { formatName } from "../../utils/formatName";
 import { ShowToast } from "../../utils/showToast";
 import { Activity } from "../interfaces/data.interface";
+import {
+  removeAllKeys,
+  storeActivityEntrie,
+} from "../../services/asyncStorage.service";
 
 export type activityActions =
   | { type: "add-any"; payload: { key: keyof Activity; value: string } }
@@ -33,6 +37,8 @@ export const activityReducer = (
   switch (action.type) {
     case "add-any":
       const { key, value } = action.payload;
+      storeActivityEntrie(key, value);
+
       return {
         ...state,
         [key]: value,
@@ -42,9 +48,7 @@ export const activityReducer = (
       return initialActivityState;
 
     case "log-state":
-      for (let [key, value] of Object.entries(state)) {
-        console.log(key, "->", value);
-      }
+      return state;
 
     case "save_in_db":
       const skipStrings: (keyof Activity)[] = [
@@ -78,8 +82,9 @@ export const activityReducer = (
           throw new Error("Pause hour is missing");
 
         // Save in JSON
-        storeJsonData(state).then((res) => {
+        storeJsonData(state).then(() => {
           state = initialActivityState;
+          removeAllKeys();
         });
 
         return initialActivityState;

@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 
 import { DateTimePickerEvent } from "@react-native-community/datetimepicker";
 
@@ -8,6 +8,7 @@ import {
   ActivityDispatchContext,
   ActivityStateContext,
 } from "../../components/contexts/ActivityContext";
+import { getActivityEntrie } from "../../services/asyncStorage.service";
 
 export type dateTime = "date" | "time";
 
@@ -23,6 +24,20 @@ export function useDateAndTime({ componentType, componentTitle }: stateProps) {
   const iconRef = useRef(
     componentType === "date" ? "calendar-outline" : "time-outline",
   ).current;
+
+  useEffect(() => {
+    getActivityEntrie(componentTitle).then((data) => {
+      if (data) {
+        activityDispatch({
+          type: "add-any",
+          payload: {
+            key: componentTitle,
+            value: data,
+          },
+        });
+      }
+    });
+  }, []);
 
   function showDateModal() {
     // setDateOrTime(formatDateAndTime(new Date().toString(), componentType));
@@ -43,6 +58,16 @@ export function useDateAndTime({ componentType, componentTitle }: stateProps) {
     setShowDatePicker(false);
   }
 
+  function resetWithLongPress() {
+    activityDispatch({
+      type: "add-any",
+      payload: {
+        key: componentTitle,
+        value: "",
+      },
+    });
+  }
+
   return {
     dateOrTime: activityState[componentTitle] as string,
     showDateModal,
@@ -50,5 +75,6 @@ export function useDateAndTime({ componentType, componentTitle }: stateProps) {
     showDatePicker,
     dataTypeRef,
     iconRef,
+    resetWithLongPress,
   };
 }

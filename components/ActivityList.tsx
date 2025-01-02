@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { View, Text, ScrollView, FlatList } from "react-native";
+import { View, Text, ScrollView, FlatList, Pressable } from "react-native";
 
 import { getJsonData } from "../services/json.service";
 import {
@@ -9,14 +9,14 @@ import {
 import { Activity } from "../common/interfaces/data.interface";
 import { formatName } from "../utils/formatName";
 import { listStyles } from "../common/styles/styles";
+import RowItem from "./RowItem";
+import sortActivities from "../utils/sortActivities";
 
 export default function ActivityList() {
   const activitiesState = useContext(ActivitiesStateContext);
   const activitiesDispatch = useContext(ActivitiesDispatchContext);
 
   useEffect(() => {
-    console.log("vegetta");
-
     getJsonData().then(({ activities }) => {
       activitiesDispatch({
         type: "set-activities-from-db",
@@ -34,51 +34,6 @@ export default function ActivityList() {
     "restart",
     "end_hour",
   ];
-
-  const renderRow = ({ item, index }: { item: Activity; index: number }) => (
-    <View style={[listStyles.row, !(index % 2) ? listStyles.zebraRow : null]}>
-      <Text
-        style={[listStyles.cell, listStyles.cellText, listStyles.list__item0]}
-      >
-        {item.date || "no date"}
-      </Text>
-      <Text
-        style={[
-          listStyles.cell,
-          listStyles.cellText,
-          listStyles.cellDetails,
-          listStyles.list__item1,
-        ]}
-      >
-        {item.details || "No details"}
-      </Text>
-      <Text
-        style={[listStyles.cell, listStyles.cellText, listStyles.list__item2]}
-      >
-        {item.quantity || "-"}
-      </Text>
-      <Text
-        style={[listStyles.cell, listStyles.cellText, listStyles.list__item3]}
-      >
-        {item.start_hour || "00:00"}
-      </Text>
-      <Text
-        style={[listStyles.cell, listStyles.cellText, listStyles.list__item4]}
-      >
-        {item.pause || "-"}
-      </Text>
-      <Text
-        style={[listStyles.cell, listStyles.cellText, listStyles.list__item5]}
-      >
-        {item.restart || "-"}
-      </Text>
-      <Text
-        style={[listStyles.cell, listStyles.cellText, listStyles.list__item6]}
-      >
-        {item.end_hour || "00:00"}
-      </Text>
-    </View>
-  );
 
   return (
     <ScrollView horizontal={true} style={listStyles.horizontalScroll}>
@@ -103,9 +58,17 @@ export default function ActivityList() {
 
           {/* Cuerpo de la tabla */}
           <FlatList
+            // data={activitiesState.todayActivities}
             data={activitiesState.todayActivities}
             keyExtractor={(item) => item.id}
-            renderItem={renderRow}
+            renderItem={({ item, index }) => (
+              <RowItem item={item} index={index} key={index} />
+            )}
+            ListEmptyComponent={
+              <Text style={{ padding: 10, fontWeight: "bold" }}>
+                No data to show
+              </Text>
+            }
           />
         </View>
       )}
