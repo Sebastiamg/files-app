@@ -78,8 +78,11 @@ export default function RowItem({ item, index }: Props) {
       >
         {item.end_hour || "00:00"}
       </Text>
-      <Pressable onPress={() => deleteActivity(item)}>
-        <Icon name="trash-bin-outline" size={30} />
+      <Pressable
+        onPress={() => deleteActivity(item)}
+        style={[listStyles.cell__icon]}
+      >
+        <Icon name="close" size={30} color="#6b1918" />
       </Pressable>
     </View>
   );

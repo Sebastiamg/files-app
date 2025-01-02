@@ -35,7 +35,7 @@ export function htmlBaseES(data: Activity[], name: string) {
                 padding: 5px;
                 text-align: center;
                 border: 2px solid black;
-                font-size: 11px;
+                font-size: 12px;
             }
 
             .table__title {

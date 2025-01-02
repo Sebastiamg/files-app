@@ -343,6 +343,17 @@ export const listStyles = StyleSheet.create({
   zebraRow: {
     backgroundColor: colors.disable,
   },
+
+  cell__icon: {
+    flex: 1,
+    backgroundColor: "#c72424",
+    borderRadius: 5,
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center",
+    alignSelf: "center",
+    marginHorizontal: 20,
+  },
 });
 
 export const buttonsStyles = StyleSheet.create({
