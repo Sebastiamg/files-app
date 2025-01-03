@@ -74,6 +74,7 @@ export const activityReducer = (
             throw new Error(`${formatName(key)} is Empty`);
           }
         }
+
         // validate pause and restart
         if (state.pause!.length > 1 && state.restart!.length < 1)
           throw new Error("Restart hour is missing");

@@ -22,6 +22,9 @@ export default function Form() {
       {/* 1. Date component */}
       <DateComponent componentType={"date"} componentTitle={"date"} />
 
+      {/* 4. Start Hour component */}
+      <DateComponent componentType={"time"} componentTitle={"start_hour"} />
+
       {/* 2. Details component */}
       <SpeechInput componentTitle={"details"} />
 
@@ -31,9 +34,6 @@ export default function Form() {
         componentTitle="quantity"
         activityDispatch={activityDispatch}
       />
-
-      {/* 4. Start Hour component */}
-      <DateComponent componentType={"time"} componentTitle={"start_hour"} />
 
       <View style={[formStyles.form__hour__container]}>
         {/* 5. Pause Hour component */}

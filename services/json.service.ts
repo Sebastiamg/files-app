@@ -37,11 +37,13 @@ export async function deleteJsonFile(): Promise<boolean> {
 export async function getJsonData(): Promise<Data> {
   try {
     const jsonData = await FileSystem.readAsStringAsync(fileUri);
+
     const data: Data = JSON.parse(jsonData);
     return data;
   } catch (error) {
     await FileSystem.writeAsStringAsync(fileUri, JSON.stringify(jsonBase));
-    console.error("Error al leer el archivo, así que se creó:", error);
+    ShowToast("Error reading file, so it was created", "danger");
+    console.log("Error reading file, so it was created:", error);
     return jsonBase;
   }
 }

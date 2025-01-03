@@ -3,10 +3,7 @@ import { View, Text, Pressable, Alert } from "react-native";
 import { listStyles } from "../common/styles/styles";
 import { Activity } from "../common/interfaces/data.interface";
 import Icon from "react-native-vector-icons/Ionicons";
-import {
-  deleteActivityFromJsonData,
-  getJsonData,
-} from "../services/json.service";
+import { deleteActivityFromJsonData } from "../services/json.service";
 import { ActivitiesDispatchContext } from "./contexts/ActivitiesContext";
 
 interface Props {

@@ -16,10 +16,12 @@ export default function SaveData() {
 
   const saveData = () => {
     activityDispatch({ type: "save_in_db" });
-    activitiesDispatch({
-      type: "update-today-activities",
-      payload: { activity: activityState },
-    });
+
+    // solo si está en la misma pantalla
+    // activitiesDispatch({
+    //   type: "update-today-activities",
+    //   payload: { activity: activityState },
+    // });
   };
 
   const saveData1 = () => {
