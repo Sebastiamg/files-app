@@ -105,7 +105,8 @@ export default function SpeechInput({ componentTitle }: Props) {
       </Text>
       <TextInput
         style={[
-          inputStyles.input__component,
+          // inputStyles.input__component,
+          formStyles.form__date__input,
           voiceStyles.voice__input__container,
         ]}
         multiline

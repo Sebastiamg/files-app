@@ -122,10 +122,38 @@ export const storeJsonData = async (activity: Activity) => {
   }
 };
 
-export const deleteActivityFromJsonData = async (
+export async function editActivityFromJsonData(activity: Activity) {
+  try {
+    const jsonData = await getJsonData();
+    const jsonActivities = jsonData.activities;
+    const activitiesDay = jsonActivities[activity.date];
+
+    const activityToUpdate = activitiesDay.findIndex(
+      (item) => item.id === activity.id,
+    );
+    activitiesDay[activityToUpdate] = activity;
+
+    const newJsonData = {
+      ...jsonData,
+      activities: {
+        ...jsonActivities,
+        [activity.date]: sortActivities([...activitiesDay]),
+      },
+    };
+
+    await FileSystem.writeAsStringAsync(fileUri, JSON.stringify(newJsonData));
+    ShowToast("Activity edited", "success");
+    return newJsonData;
+  } catch (error) {
+    ShowToast(`${error}`, "danger");
+    console.error(error);
+  }
+}
+
+export async function deleteActivityFromJsonData(
   activityDate: string,
   activityId: string,
-) => {
+) {
   try {
     const jsonData = await getJsonData();
     const jsonActivities = jsonData.activities;
@@ -149,4 +177,4 @@ export const deleteActivityFromJsonData = async (
     ShowToast(`${error}`, "danger");
     console.error(error);
   }
-};
+}

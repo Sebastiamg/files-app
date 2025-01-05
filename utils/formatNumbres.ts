@@ -1,5 +1,5 @@
-export function formatNumber(num: string | number) {
-  if (num) {
+export function formatNumber(num: string | number): string {
+  if (num.toString().length > 0) {
     return num
       .toString()
       .substring(

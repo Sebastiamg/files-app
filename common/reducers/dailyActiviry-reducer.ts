@@ -51,12 +51,7 @@ export const activityReducer = (
       return state;
 
     case "save_in_db":
-      const skipStrings: (keyof Activity)[] = [
-        "id",
-        "date",
-        "pause",
-        "restart",
-      ];
+      const skipStrings: (keyof Activity)[] = ["id", "pause", "restart"];
 
       // set id
       state.id = uuid.v4();

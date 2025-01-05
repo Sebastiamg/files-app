@@ -40,13 +40,11 @@ export function useDateAndTime({ componentType, componentTitle }: stateProps) {
   }, []);
 
   function showDateModal() {
-    // setDateOrTime(formatDateAndTime(new Date().toString(), componentType));
     setShowDatePicker(true);
   }
 
   function changeDateOrTime(e: DateTimePickerEvent, date: Date) {
     if (e.type === "set") {
-      // setDateOrTime(formatDateAndTime(date, componentType));
       activityDispatch({
         type: "add-any",
         payload: {

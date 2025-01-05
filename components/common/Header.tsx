@@ -16,14 +16,14 @@ function donwnloadData() {
 export default function Header({ ownerName, setOwnerName }: Props) {
   return (
     <View style={headerStyles.header}>
-      <Text style={headerStyles.header__title}>Actividades de Producción</Text>
+      <Text style={headerStyles.header__title}>Production Activities</Text>
       <View style={headerStyles.header__names__container}>
         <Text style={headerStyles.header__owner}>{ownerName}</Text>
         <Pressable
-          onPress={donwnloadData}
+          onLongPress={donwnloadData}
           style={headerStyles.header__developer}
         >
-          <Text style={headerStyles.header__developer__title}>Alpha V1</Text>
+          <Text style={headerStyles.header__developer__title}>Beta</Text>
         </Pressable>
       </View>
       <SetName setOwnerName={setOwnerName} ownerName={ownerName} />

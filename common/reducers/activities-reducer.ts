@@ -1,4 +1,5 @@
 import { formatDateAndTime } from "../../utils/formatDateTime";
+import sortActivities from "../../utils/sortActivities";
 import { Activity, Data } from "../interfaces/data.interface";
 
 export type activitiesActions =
@@ -17,6 +18,10 @@ export type activitiesActions =
   | {
       type: "update-activities-after-removing";
       payload: { activityId: string };
+    }
+  | {
+      type: "update-activities-after-updating";
+      payload: { activity: Activity };
     };
 
 type initialState = {
@@ -70,6 +75,16 @@ export const activitiesReducer = (
       return {
         ...state,
         todayActivities: updatedActivities,
+      };
+
+    case "update-activities-after-updating":
+      const activityToUpdateIndex = state.todayActivities.findIndex(
+        (item) => item.id === action.payload.activity.id,
+      );
+      state.todayActivities[activityToUpdateIndex] = action.payload.activity;
+      return {
+        ...state,
+        todayActivities: sortActivities([...state.todayActivities]),
       };
 
     default:

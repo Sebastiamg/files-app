@@ -66,7 +66,7 @@ export default function InputComponent({
       </Text>
       <TextInput
         keyboardType="numeric"
-        style={[inputStyles.input__component]}
+        style={[formStyles.form__date__input]}
         value={initialState}
         onChangeText={(e) => handleChange(e)}
         ref={inputRef}

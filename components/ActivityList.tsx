@@ -1,5 +1,5 @@
-import { useContext, useEffect } from "react";
-import { View, Text, ScrollView, FlatList, Pressable } from "react-native";
+import { useContext, useEffect, useState } from "react";
+import { View, Text, ScrollView, FlatList } from "react-native";
 
 import { getJsonData } from "../services/json.service";
 import {
@@ -10,11 +10,12 @@ import { Activity } from "../common/interfaces/data.interface";
 import { formatName } from "../utils/formatName";
 import { listStyles } from "../common/styles/styles";
 import RowItem from "./RowItem";
-import sortActivities from "../utils/sortActivities";
 
 export default function ActivityList() {
   const activitiesState = useContext(ActivitiesStateContext);
   const activitiesDispatch = useContext(ActivitiesDispatchContext);
+
+  const [isSomeRowEditing, setIsSomeRowEditing] = useState(false);
 
   useEffect(() => {
     getJsonData().then(({ activities }) => {
@@ -48,7 +49,7 @@ export default function ActivityList() {
                 style={[
                   listStyles.headerCell,
                   listStyles.headerText,
-                  listStyles[`list__item${i}` as keyof typeof listStyles],
+                  listStyles[`list__item__${key}` as keyof typeof listStyles],
                 ]}
               >
                 {formatName(key)}
@@ -58,11 +59,16 @@ export default function ActivityList() {
 
           {/* Cuerpo de la tabla */}
           <FlatList
-            // data={activitiesState.todayActivities}
             data={activitiesState.todayActivities}
             keyExtractor={(item) => item.id}
             renderItem={({ item, index }) => (
-              <RowItem item={item} index={index} key={index} />
+              <RowItem
+                item={item}
+                index={index}
+                key={item.id}
+                isARowEditing={isSomeRowEditing}
+                setIsThisRowEditign={setIsSomeRowEditing}
+              />
             )}
             ListEmptyComponent={
               <Text style={{ padding: 10, fontWeight: "bold" }}>

@@ -4,7 +4,7 @@ import { Pressable, Text, View } from "react-native";
 import { ActivitiesStateContext } from "./contexts/ActivitiesContext";
 import { sharePDF } from "../services/pdf.service";
 
-import { buttonsStyles } from "../common/styles/styles";
+import { formStyles } from "../common/styles/styles";
 import { getJsonName } from "../services/json.service";
 import { htmlBaseES } from "../utils/htmlBaseES";
 
@@ -20,13 +20,16 @@ export default function CreateTodayPdf() {
   return (
     <View>
       {todayActivities ? (
-        <Pressable onPress={printToFile} style={[buttonsStyles.main_donwnload]}>
-          <Text style={[buttonsStyles.main_donwnload_text]}>
+        <Pressable
+          onPress={printToFile}
+          style={[formStyles.form__save__data__container]}
+        >
+          <Text style={[formStyles.form__save__data__title]}>
             Download Daily Report
           </Text>
         </Pressable>
       ) : (
-        <Text style={[buttonsStyles.main_donwnload_text]}>
+        <Text style={[formStyles.form__save__data__title]}>
           No data to share
         </Text>
       )}

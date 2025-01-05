@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 
 const colors = {
-  primary: "#F8961E",
+  primarys: "#F8961E",
   secondary: "#F94144",
   text: "#252422",
   text_secondary: "#fff8f0",
@@ -13,27 +13,42 @@ const colors = {
   on: "#adc178",
   off: "#bc4749",
 
-  imperialRed: "#f94144ff",
-  orangeCrayola: "#f3722cff",
-  carrotOrange: "#f8961eff",
-  coral: "#f9844aff",
-  saffron: "#f9c74fff",
-  pistachio: "#90be6dff",
-  zomp: "#43aa8bff",
-  darkCyan: "#4d908eff",
-  paynesGray: "#577590ff",
-  cerulean: "#277da1ff",
+  // Azul:
+  primary: "#184e77",
+  level2: "#1e6091",
+  level3: "#1a759f",
+  level4: "#168aad",
+
+  level5: "#2a6f97ff",
+  level6: "#2c7da0ff",
+  level7: "#468fafff",
+  level8: "#61a5c2ff",
+  level9: "#89c2d9ff",
+  level10: "#a9d6e5ff",
+  level11: "#cae9ff",
+
+  // orange - yellow
+  oLevel1: "#ffb703",
+  oLevel2: "#fd9e02",
+  oLevel3: "#fb8500",
+
+  // purple
+  pLevel1: "#4e148c",
+  pLevel2: "#613dc1",
+  pLevel3: "#858ae3",
+
+  textWhite: "#F1F8FD",
 };
 
 export const headerStyles = StyleSheet.create({
   header: {
-    backgroundColor: "white",
+    backgroundColor: colors.primary,
     width: "100%",
   },
   header__title: {
-    color: colors.text,
-    backgroundColor: "#ffbc0a",
-    fontSize: 25,
+    color: colors.level11,
+    backgroundColor: colors.primary,
+    fontSize: 23,
     textAlign: "center",
     fontWeight: "bold",
     paddingVertical: 8,
@@ -42,12 +57,11 @@ export const headerStyles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    height: 50,
-    backgroundColor: colors.primary,
+    backgroundColor: colors.level2,
   },
   header__owner: {
     color: colors.text,
-    fontSize: 20,
+    fontSize: 17,
     fontWeight: "bold",
     paddingVertical: 5,
     flex: 0.5,
@@ -56,20 +70,20 @@ export const headerStyles = StyleSheet.create({
   header__developer: {
     flex: 0.5,
     borderLeftWidth: 2,
-    borderLeftColor: "#3b3b3b",
+    borderLeftColor: colors.primary,
   },
   header__developer__title: {
-    color: colors.text_secondary,
-    fontSize: 20,
+    fontSize: 17,
     fontWeight: "bold",
     textAlign: "center",
-    paddingVertical: 5,
+    paddingVertical: 2,
+    color: colors.level8,
   },
 });
 
 export const setNameStyles = StyleSheet.create({
   setName: {
-    backgroundColor: colors.cerulean,
+    backgroundColor: colors.level3,
     padding: 10,
   },
   setName__text: {
@@ -122,7 +136,7 @@ export const navStyles = StyleSheet.create({
     width: "50%",
     textAlign: "center",
     height: "auto",
-    backgroundColor: colors.disable,
+    backgroundColor: colors.level10,
     // borderRadius: 5,
   },
   navBar__button__pressed: {
@@ -134,18 +148,17 @@ export const navStyles = StyleSheet.create({
     textAlign: "center",
   },
   navBar__screen__focused: {
-    backgroundColor: colors.cerulean,
+    backgroundColor: colors.level2,
   },
 });
 
 export const layoutStyles = StyleSheet.create({
   main__container: {
     flex: 1,
-    gap: 1,
     flexDirection: "column",
   },
   scroll__container: {
-    // padding: 10,
+    backgroundColor: colors.level11,
   },
   scroll__content__container: {
     height: "auto",
@@ -156,14 +169,13 @@ export const layoutStyles = StyleSheet.create({
 
 export const formStyles = StyleSheet.create({
   form__container: {
-    borderBlockColor: "black",
+    borderBlockColor: colors.primary,
     width: "100%",
     height: "auto",
     borderWidth: 1,
     borderRadius: 5,
-    padding: 3,
     gap: 3,
-    // backgroundColor: "red",
+    backgroundColor: colors.level7,
   },
   form__title: {
     fontSize: 20,
@@ -171,7 +183,10 @@ export const formStyles = StyleSheet.create({
     textAlign: "center",
     paddingVertical: 5,
     borderBottomColor: "black",
-    borderBottomWidth: 1,
+    borderRadius: 5,
+    backgroundColor: colors.level5,
+    elevation: 7,
+    // boxShadow: "0px 1px 10px",
   },
 
   form__date__container: {
@@ -180,55 +195,59 @@ export const formStyles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     flexShrink: 1,
-    padding: 2,
+    paddingVertical: 2,
+    paddingHorizontal: 4,
+    alignItems: "stretch",
+    justifyContent: "center",
+    alignSelf: "center",
   },
   form__date__title: {
     textAlign: "left",
     fontWeight: "bold",
-    fontSize: 15,
+    fontSize: 16,
     width: "100%",
   },
   form__date__input: {
-    backgroundColor: colors.disable,
+    backgroundColor: colors.textWhite,
     borderTopLeftRadius: 5,
     borderBottomLeftRadius: 5,
     padding: 10,
     flex: 0.8,
-    alignContent: "center",
-    alignItems: "center",
-    elevation: 5,
-    flexBasis: 1,
-    flexShrink: 1,
+    alignSelf: "center",
+    fontSize: 15,
+    fontWeight: "condensedBold",
+    borderWidth: 2,
+    borderRightWidth: 0,
   },
   form__date__icon: {
+    backgroundColor: colors.oLevel2,
     width: "100%",
     height: "auto",
-    backgroundColor: "white",
     borderTopRightRadius: 5,
     borderBottomEndRadius: 5,
     flex: 0.3,
     alignItems: "center",
     justifyContent: "center",
-    flexDirection: "row",
-    elevation: 5,
-    flexBasis: 1,
-    flexShrink: 1,
+    alignSelf: "stretch",
+    borderWidth: 2,
   },
   form__date__icon2: {
     textAlign: "center",
-    flex: 1,
-    height: "auto",
     width: "100%",
   },
   form__hour__container: {
     flex: 1,
     flexDirection: "row",
+    backgroundColor: colors.level3,
   },
 
   form__save__data__container: {
-    marginTop: 10,
+    borderWidth: 2,
+    width: "98%",
+    alignSelf: "center",
+    margin: 10,
     padding: 10,
-    backgroundColor: colors.orangeCrayola,
+    backgroundColor: colors.oLevel3,
     borderRadius: 5,
   },
   form__save__data__title: {
@@ -264,69 +283,80 @@ export const voiceStyles = StyleSheet.create({
 });
 
 export const listStyles = StyleSheet.create({
-  list__item0: {
+  list__item__date: {
     width: 100,
   },
-  list__item1: {
+  list__item__details: {
     width: 250,
   },
-  list__item2: {
+  list__item__quantity: {
     width: 90,
+    textAlign: "center",
   },
-  list__item3: {
+  list__item__start_hour: {
+    width: 60,
+    textAlign: "center",
+  },
+  list__item__pause: {
     width: 75,
+    textAlign: "center",
   },
-  list__item4: {
+  list__item__restart: {
     width: 75,
+    textAlign: "center",
   },
-  list__item5: {
-    width: 75,
+  list__item__end_hour: {
+    width: 60,
+    textAlign: "center",
   },
-  list__item6: {
-    width: 75,
+  list__item__delete_cell: {
+    width: 40,
+    backgroundColor: "#c72424",
   },
-  list__item7: {
-    width: 150,
-  },
-  list__item8: {
-    width: 150,
+  list__item__edit_cell: {
+    width: 40,
+    backgroundColor: colors.level3,
   },
 
   // xd
   horizontalScroll: {
     flex: 1,
     marginVertical: 20,
-    backgroundColor: colors.enable,
+    borderTopWidth: 2,
+    borderBottomWidth: 2,
+    backgroundColor: colors.level9,
   },
   title: {
     textAlign: "left",
     fontWeight: "bold",
     fontSize: 20,
+    paddingVertical: 10,
   },
   header: {
     flexDirection: "row",
-    backgroundColor: colors.carrotOrange,
-    padding: 3,
+    backgroundColor: colors.oLevel1,
     borderRadius: 5,
     borderWidth: 2,
+    flex: 1,
+    alignItems: "center",
+    alignContent: "center",
+    justifyContent: "flex-start",
   },
   headerCell: {
     minWidth: 10,
-    paddingHorizontal: 10,
-    justifyContent: "center",
-    alignSelf: "center",
+    height: "100%",
   },
   headerText: {
     fontWeight: "bold",
-    fontSize: 16,
+    fontSize: 17,
     textAlign: "center",
+    textAlignVertical: "center",
   },
   row: {
     flexDirection: "row",
-    borderRadius: 5,
-    borderBottomWidth: 2,
-    padding: 10,
-    // height: 40,
+    borderBottomWidth: 1,
+    height: "auto",
+    alignItems: "center",
   },
   cell: {
     minWidth: 10,
@@ -334,39 +364,27 @@ export const listStyles = StyleSheet.create({
     alignSelf: "center",
   },
   cellText: {
-    fontSize: 14,
+    fontSize: 15,
     textAlign: "center",
+    padding: 10,
+    borderRightWidth: 1,
   },
   cellDetails: {
     textAlign: "left",
   },
   zebraRow: {
-    backgroundColor: colors.disable,
+    backgroundColor: colors.level10,
   },
-
+  isEditignRow: {
+    backgroundColor: colors.pLevel3,
+  },
   cell__icon: {
     flex: 1,
-    backgroundColor: "#c72424",
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
     textAlign: "center",
     alignSelf: "center",
     marginHorizontal: 20,
-  },
-});
-
-export const buttonsStyles = StyleSheet.create({
-  main_donwnload: {
-    width: "100%",
-    padding: 10,
-    borderWidth: 1,
-    borderRadius: 5,
-    backgroundColor: colors.paynesGray,
-  },
-  main_donwnload_text: {
-    textAlign: "center",
-    fontWeight: "bold",
-    textDecorationColor: "white",
   },
 });
