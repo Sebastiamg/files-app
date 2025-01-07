@@ -5,7 +5,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 
 import { activityActions } from "../common/reducers/dailyActiviry-reducer";
 import { Activity } from "../common/interfaces/data.interface";
-import { formStyles, inputStyles } from "../common/styles/styles";
+import { formStyles } from "../common/styles/styles";
 import { formatName } from "../utils/formatName";
 import { formatNumber } from "../utils/formatNumbres";
 import { getActivityEntrie } from "../services/asyncStorage.service";

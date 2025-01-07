@@ -5,6 +5,7 @@ import { Activity, Data } from "../common/interfaces/data.interface";
 import { ShowToast } from "../utils/showToast";
 import jsonBase from "../jsonbase.json";
 import sortActivities from "../utils/sortActivities";
+import { sortDates } from "../utils/sortDates";
 
 const fileUri = FileSystem.documentDirectory + "data.json";
 
@@ -100,12 +101,12 @@ export const storeJsonData = async (activity: Activity) => {
 
     const jsonDataPayload: Data = {
       ...jsonData,
-      activities: {
+      activities: sortDates({
         ...activities,
         [activity.date]: emptyDate
           ? [{ ...activity }]
           : sortActivities([...activities[activity.date], { ...activity }]),
-      },
+      }),
     };
 
     await FileSystem.writeAsStringAsync(

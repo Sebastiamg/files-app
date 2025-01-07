@@ -84,34 +84,36 @@ export const headerStyles = StyleSheet.create({
 export const setNameStyles = StyleSheet.create({
   setName: {
     backgroundColor: colors.level3,
-    padding: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
   },
   setName__text: {
     color: colors.text_secondary,
-    fontSize: 20,
+    fontSize: 17,
     fontWeight: "bold",
   },
   setName__input__container: {
     flexDirection: "row",
     alignItems: "stretch",
     gap: 5,
-    marginVertical: 10,
+    marginVertical: 5,
   },
   setName__input: {
     backgroundColor: colors.text_secondary,
-    padding: 10,
     paddingHorizontal: 12,
     borderRadius: 5,
     flex: 0.8,
-    fontWeight: "bold",
+    fontWeight: "600",
+    fontSize: 15,
   },
   setName__input__disabled: {
     backgroundColor: colors.disable,
-    padding: 10,
     paddingHorizontal: 12,
     borderRadius: 5,
     flex: 0.8,
-    fontWeight: "bold",
+    fontWeight: "600",
+    fontSize: 15,
+    color: colors.primary,
   },
   setName__icon: {
     backgroundColor: colors.text_secondary,
@@ -120,7 +122,7 @@ export const setNameStyles = StyleSheet.create({
   },
   setName__icon2: {
     textAlign: "center",
-    padding: 7,
+    padding: 5,
   },
 });
 
@@ -172,10 +174,11 @@ export const formStyles = StyleSheet.create({
     borderBlockColor: colors.primary,
     width: "100%",
     height: "auto",
-    borderWidth: 1,
+    borderWidth: 2,
     borderRadius: 5,
     gap: 3,
     backgroundColor: colors.level7,
+    boxShadow: "0px 0px 2px black, 0px 0px 2px black,",
   },
   form__title: {
     fontSize: 20,
@@ -283,6 +286,10 @@ export const voiceStyles = StyleSheet.create({
 });
 
 export const listStyles = StyleSheet.create({
+  list__item__header__empty: {
+    width: 77.9,
+  },
+
   list__item__date: {
     width: 100,
   },
@@ -330,7 +337,7 @@ export const listStyles = StyleSheet.create({
     textAlign: "left",
     fontWeight: "bold",
     fontSize: 20,
-    paddingVertical: 10,
+    padding: 10,
   },
   header: {
     flexDirection: "row",
@@ -355,19 +362,18 @@ export const listStyles = StyleSheet.create({
   row: {
     flexDirection: "row",
     borderBottomWidth: 1,
-    height: "auto",
     alignItems: "center",
   },
   cell: {
     minWidth: 10,
     paddingHorizontal: 10,
-    alignSelf: "center",
+    verticalAlign: "middle",
+    borderRightWidth: 1,
   },
   cellText: {
     fontSize: 15,
     textAlign: "center",
     padding: 10,
-    borderRightWidth: 1,
   },
   cellDetails: {
     textAlign: "left",
@@ -386,5 +392,37 @@ export const listStyles = StyleSheet.create({
     textAlign: "center",
     alignSelf: "center",
     marginHorizontal: 20,
+  },
+});
+
+export const oldStyles = StyleSheet.create({
+  old__date__main__title: {
+    fontWeight: "bold",
+    fontSize: 20,
+    textAlign: "center",
+    padding: 10,
+  },
+
+  old__date__container: {
+    flexDirection: "row",
+    backgroundColor: colors.level7,
+    borderRadius: 10,
+    marginBottom: 10,
+  },
+  old__date__title: {
+    flex: 0.8,
+    fontSize: 17,
+    fontWeight: "500",
+    textAlign: "left",
+    verticalAlign: "middle",
+    padding: 10,
+  },
+  old__date__expand: {
+    flex: 0.2,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: colors.level6,
+    borderTopEndRadius: 5,
+    borderBottomEndRadius: 5,
   },
 });

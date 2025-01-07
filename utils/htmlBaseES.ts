@@ -83,6 +83,7 @@ export function htmlBaseES(data: Activity[], name: string) {
 
             .table__details__content {
                 text-align: left;
+                height: 40px;
             }
           </style>
         </head>

@@ -26,7 +26,7 @@ export default function ActivityList() {
     });
   }, []);
 
-  const activityKeys: (keyof Activity)[] = [
+  const activityKeys: (keyof Activity | "-")[] = [
     "date",
     "details",
     "quantity",
@@ -34,6 +34,8 @@ export default function ActivityList() {
     "pause",
     "restart",
     "end_hour",
+    "-",
+    "-",
   ];
 
   return (
@@ -49,6 +51,7 @@ export default function ActivityList() {
                 style={[
                   listStyles.headerCell,
                   listStyles.headerText,
+                  listStyles.list__item__header__empty,
                   listStyles[`list__item__${key}` as keyof typeof listStyles],
                 ]}
               >

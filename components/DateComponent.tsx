@@ -53,6 +53,7 @@ export default function DateComponent({
           mode={dataTypeRef}
           is24Hour={true}
           onChange={(e, date) => changeDateOrTime(e, date as Date)}
+          maximumDate={new Date()}
         />
       )}
     </View>

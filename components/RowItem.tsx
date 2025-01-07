@@ -51,12 +51,22 @@ export default function RowItem({
 
   const handleEdit = () => {
     if (editableInputs) {
-      setEditableInputs(false);
-      setIsThisRowEditign(false);
       Alert.alert("Are you sure?", "Edit Activity", [
         {
           text: "Cancel",
           style: "cancel",
+          onPress: () => {
+            setEditableInputs(true);
+            setIsThisRowEditign(true);
+          },
+        },
+        {
+          text: "Discart Changes",
+          onPress: () => {
+            setActivityEditing(item);
+            setEditableInputs(false);
+            setIsThisRowEditign(false);
+          },
         },
         {
           text: "Edit",
@@ -66,6 +76,8 @@ export default function RowItem({
               type: "update-activities-after-updating",
               payload: { activity: activityEditing },
             });
+            setEditableInputs(false);
+            setIsThisRowEditign(false);
           },
         },
       ]);

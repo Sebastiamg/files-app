@@ -97,6 +97,7 @@ export default function RowCell({
             is24Hour
             mode="time"
             onChange={(e, x) => handleChange(e)}
+            maximumDate={new Date()}
           />
         )}
       </View>

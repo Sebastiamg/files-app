@@ -26,7 +26,7 @@ export async function sharePDF(html: string) {
       console.log("Sharing is not available on this device");
     }
 
-    console.log("Archivo compartido exitosamente.");
+    ShowToast("File shared successfully", "success");
   } catch (error) {
     const err = error as { message: string };
     ShowToast(err.message, "danger");
