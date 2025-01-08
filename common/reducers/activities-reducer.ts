@@ -1,5 +1,6 @@
 import { formatDateAndTime } from "../../utils/formatDateTime";
 import sortActivities from "../../utils/sortActivities";
+import { sortDates } from "../../utils/sortDates";
 import { Activity, Data } from "../interfaces/data.interface";
 
 export type activitiesActions =
@@ -16,12 +17,20 @@ export type activitiesActions =
       payload: { activity: Activity };
     }
   | {
-      type: "update-activities-after-removing";
-      payload: { activityId: string };
+      type: "update-today-activities-after-removing";
+      payload: { activityId: string; activityDate?: string };
     }
   | {
-      type: "update-activities-after-updating";
+      type: "update-today-activities-after-updating";
       payload: { activity: Activity };
+    }
+  | {
+      type: "update-activities-after-remove-day";
+      payload: { dayDate: string };
+    }
+  | {
+      type: "update-old-activity-after-removing";
+      payload: { activityId: string; activityDate: string };
     };
 
 type initialState = {
@@ -42,7 +51,7 @@ export const activitiesReducer = (
     new Date(new Date().toDateString()),
     "date",
   );
-  let updatedActivities;
+  let updatedTodayActivities, updatedActivities, updatedOldActivity;
   switch (action.type) {
     case "set-activities-from-db":
       return {
@@ -62,22 +71,25 @@ export const activitiesReducer = (
       };
 
     case "update-today-activities":
-      updatedActivities = [...state.todayActivities, action.payload.activity];
+      updatedTodayActivities = [
+        ...state.todayActivities,
+        action.payload.activity,
+      ];
       return {
         ...state,
-        todayActivities: updatedActivities,
+        todayActivities: updatedTodayActivities,
       };
 
-    case "update-activities-after-removing":
-      updatedActivities = state.todayActivities.filter((activity) => {
+    case "update-today-activities-after-removing":
+      updatedTodayActivities = state.todayActivities.filter((activity) => {
         return activity.id !== action.payload.activityId;
       });
       return {
         ...state,
-        todayActivities: updatedActivities,
+        todayActivities: updatedTodayActivities,
       };
 
-    case "update-activities-after-updating":
+    case "update-today-activities-after-updating":
       const activityToUpdateIndex = state.todayActivities.findIndex(
         (item) => item.id === action.payload.activity.id,
       );
@@ -85,6 +97,30 @@ export const activitiesReducer = (
       return {
         ...state,
         todayActivities: sortActivities([...state.todayActivities]),
+      };
+
+    case "update-activities-after-remove-day":
+      updatedActivities = state.activities;
+      delete updatedActivities[action.payload.dayDate];
+
+      return {
+        ...state,
+        activities: updatedActivities,
+      };
+
+    case "update-old-activity-after-removing":
+      const updatedOldActivity = state.activities[
+        action.payload.activityDate
+      ].filter((activity) => {
+        return activity.id !== action.payload.activityId;
+      });
+
+      return {
+        ...state,
+        activities: sortDates({
+          ...state.activities,
+          [action.payload.activityDate]: sortActivities(updatedOldActivity),
+        }),
       };
 
     default:

@@ -67,7 +67,7 @@ export default function FromUntilDownloader() {
 
   return (
     <View>
-      {activitiesState.activities && (
+      {Object.keys(activitiesState.activities).length > 1 && (
         <View style={[donwnloaderStyles.downloader__container]}>
           <View style={[donwnloaderStyles.downloader__item]}>
             <Text style={[donwnloaderStyles.downloader__label]}>From</Text>

@@ -43,7 +43,7 @@ export async function getJsonData(): Promise<Data> {
     return data;
   } catch (error) {
     await FileSystem.writeAsStringAsync(fileUri, JSON.stringify(jsonBase));
-    ShowToast("Error reading file, so it was created", "danger");
+    ShowToast("Error reading file, so it was created", "success");
     console.log("Error reading file, so it was created:", error);
     return jsonBase;
   }
@@ -136,10 +136,10 @@ export async function editActivityFromJsonData(activity: Activity) {
 
     const newJsonData = {
       ...jsonData,
-      activities: {
+      activities: sortDates({
         ...jsonActivities,
         [activity.date]: sortActivities([...activitiesDay]),
-      },
+      }),
     };
 
     await FileSystem.writeAsStringAsync(fileUri, JSON.stringify(newJsonData));
@@ -166,14 +166,34 @@ export async function deleteActivityFromJsonData(
 
     const newJsonData = {
       ...jsonData,
-      activities: {
+      activities: sortDates({
         ...jsonActivities,
-        [activityDate]: newActivities,
-      },
+        [activityDate]: sortActivities(newActivities),
+      }),
     };
 
     await FileSystem.writeAsStringAsync(fileUri, JSON.stringify(newJsonData));
     ShowToast("Activity deleted", "success");
+  } catch (error) {
+    ShowToast(`${error}`, "danger");
+    console.error(error);
+  }
+}
+
+export async function deleteDayFromJsonDate(dateToDelete: string) {
+  try {
+    const jsonData = await getJsonData();
+
+    const jsonActivities = jsonData.activities;
+    delete jsonActivities[dateToDelete];
+
+    const newJsonData = {
+      ...jsonData,
+      activities: sortDates(jsonActivities),
+    };
+
+    await FileSystem.writeAsStringAsync(fileUri, JSON.stringify(newJsonData));
+    ShowToast("Date deleted", "success");
   } catch (error) {
     ShowToast(`${error}`, "danger");
     console.error(error);

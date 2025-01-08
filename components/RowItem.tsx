@@ -42,9 +42,16 @@ export default function RowItem({
         text: "Delete",
         onPress: async () => {
           await deleteActivityFromJsonData(activity.date, activity.id);
+
           activitiesDispatch({
-            type: "update-activities-after-removing",
-            payload: { activityId: activity.id },
+            type: "update-today-activities-after-removing",
+            payload: { activityId: activity.id, activityDate: activity.date },
+          });
+
+          // If activity matches as old activity
+          activitiesDispatch({
+            type: "update-old-activity-after-removing",
+            payload: { activityId: activity.id, activityDate: activity.date },
           });
         },
       },
@@ -75,7 +82,7 @@ export default function RowItem({
           onPress: async () => {
             await editActivityFromJsonData(activityEditing);
             activitiesDispatch({
-              type: "update-activities-after-updating",
+              type: "update-today-activities-after-updating",
               payload: { activity: activityEditing },
             });
             setEditableInputs(false);

@@ -1,5 +1,12 @@
-import React, { useState } from "react";
-import { View, Text, Pressable, FlatList, ScrollView } from "react-native";
+import React, { useContext, useState } from "react";
+import {
+  View,
+  Text,
+  Pressable,
+  FlatList,
+  ScrollView,
+  Alert,
+} from "react-native";
 import { formatLocaleDate } from "../utils/formatLocaleDate";
 import { oldStyles } from "../common/styles/styles";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -7,7 +14,8 @@ import { Activity } from "../common/interfaces/data.interface";
 import RowItem from "./RowItem";
 import { sharePDF } from "../services/pdf.service";
 import { htmlBaseES } from "../utils/htmlBaseES";
-import { getJsonName } from "../services/json.service";
+import { deleteDayFromJsonDate, getJsonName } from "../services/json.service";
+import { ActivitiesDispatchContext } from "./contexts/ActivitiesContext";
 
 interface Props {
   date: string;
@@ -16,6 +24,7 @@ interface Props {
 
 export default function OldTableItem({ date, activities }: Props) {
   const [isShowingTable, setIsShowingTable] = useState(false);
+  const activitiesDispatch = useContext(ActivitiesDispatchContext);
 
   function showTable() {
     setIsShowingTable(!isShowingTable);
@@ -26,6 +35,24 @@ export default function OldTableItem({ date, activities }: Props) {
       htmlBaseES(activities, await getJsonName()),
       `${date}_${(await getJsonName()) || "Anonymus"}_Daily_Report`,
     );
+  }
+
+  async function deleteOldDate() {
+    Alert.alert("Are you sure?", "Delete Whole Day", [
+      {
+        text: "Cancel",
+      },
+      {
+        text: "Delete",
+        onPress: () => {
+          deleteDayFromJsonDate(date);
+          activitiesDispatch({
+            type: "update-activities-after-remove-day",
+            payload: { dayDate: date },
+          });
+        },
+      },
+    ]);
   }
 
   return (
@@ -55,17 +82,22 @@ export default function OldTableItem({ date, activities }: Props) {
           <View style={[oldStyles.old__date__buttons__container]}>
             <Pressable
               onPress={downloadOldDate}
-              style={[oldStyles.old__date__buttons__icon]}
+              style={[
+                oldStyles.old__date__buttons__icon,
+                oldStyles.old__date__button__download,
+              ]}
             >
               <Icon name="download-outline" size={30}></Icon>
-              {/* <Text>Download</Text> */}
             </Pressable>
-            {/* <Pressable
-              onPress={downloadOldDate}
-              style={[oldStyles.old__date__buttons__icon]}
+            <Pressable
+              onPress={deleteOldDate}
+              style={[
+                oldStyles.old__date__buttons__icon,
+                oldStyles.old__date__button__delete,
+              ]}
             >
               <Icon name="trash-outline" size={30}></Icon>
-            </Pressable> */}
+            </Pressable>
           </View>
           <ScrollView horizontal={true}>
             {/* list */}

@@ -439,6 +439,7 @@ export const oldStyles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: colors.level8,
     marginTop: 5,
+    gap: 5,
   },
   old__date__buttons__icon: {
     backgroundColor: colors.oLevel1,
@@ -450,6 +451,12 @@ export const oldStyles = StyleSheet.create({
     alignContent: "center",
     alignItems: "center",
     textAlign: "center",
+  },
+  old__date__button__download: {
+    backgroundColor: colors.oLevel2,
+  },
+  old__date__button__delete: {
+    backgroundColor: colors.pLevel3,
   },
 });
 
