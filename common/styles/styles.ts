@@ -368,7 +368,6 @@ export const listStyles = StyleSheet.create({
     minWidth: 10,
     paddingHorizontal: 10,
     verticalAlign: "middle",
-    borderRightWidth: 1,
   },
   cellText: {
     fontSize: 15,
@@ -400,14 +399,19 @@ export const oldStyles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 20,
     textAlign: "center",
-    padding: 10,
+    paddingTop: 15,
+  },
+
+  old__date__main__container: {
+    gap: 10,
+    flexDirection: "column",
   },
 
   old__date__container: {
     flexDirection: "row",
     backgroundColor: colors.level7,
     borderRadius: 10,
-    marginBottom: 10,
+    // marginBottom: 10,
   },
   old__date__title: {
     flex: 0.8,
@@ -424,5 +428,68 @@ export const oldStyles = StyleSheet.create({
     backgroundColor: colors.level6,
     borderTopEndRadius: 5,
     borderBottomEndRadius: 5,
+  },
+  old__date__expand__expanded: {
+    backgroundColor: colors.level9,
+  },
+  old__date__buttons__container: {
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "flex-end",
+    borderRadius: 5,
+    backgroundColor: colors.level8,
+    marginTop: 5,
+  },
+  old__date__buttons__icon: {
+    backgroundColor: colors.oLevel1,
+    padding: 6,
+    borderRadius: 5,
+    width: "19.3%",
+    paddingHorizontal: 15,
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
+    textAlign: "center",
+  },
+});
+
+export const donwnloaderStyles = StyleSheet.create({
+  downloader__container: {
+    padding: 5,
+    width: "100%",
+    flexDirection: "row",
+    backgroundColor: colors.level4,
+    alignContent: "flex-end",
+    alignItems: "flex-end",
+    justifyContent: "space-between",
+    borderRadius: 5,
+  },
+
+  downloader__item: {
+    flexDirection: "column",
+    width: "33%",
+  },
+
+  downloader__label: {
+    fontWeight: "bold",
+    fontSize: 17,
+  },
+  downloader__input: {
+    padding: 10,
+    fontWeight: "500",
+    borderRadius: 5,
+    backgroundColor: colors.level10,
+  },
+  downloader__download: {
+    padding: 10,
+    backgroundColor: colors.level2,
+    borderRadius: 5,
+    justifyContent: "center",
+  },
+  downloader__download__text: {
+    fontWeight: "500",
+    fontSize: 17,
+    textAlign: "center",
+    color: colors.level11,
   },
 });

@@ -17,6 +17,7 @@ interface Props {
   index: number;
   isARowEditing: boolean;
   setIsThisRowEditign: React.Dispatch<React.SetStateAction<boolean>>;
+  hiddeDate?: boolean;
 }
 
 export default function RowItem({
@@ -24,6 +25,7 @@ export default function RowItem({
   index,
   isARowEditing,
   setIsThisRowEditign,
+  hiddeDate = false,
 }: Props) {
   const activitiesDispatch = useContext(ActivitiesDispatchContext);
 
@@ -96,15 +98,17 @@ export default function RowItem({
         editableInputs ? listStyles.isEditignRow : null,
       ]}
     >
-      <Text
-        style={[
-          listStyles.cell,
-          listStyles.cellText,
-          listStyles.list__item__date,
-        ]}
-      >
-        {item.date || "no date"}
-      </Text>
+      {!hiddeDate && (
+        <Text
+          style={[
+            listStyles.cell,
+            listStyles.cellText,
+            listStyles.list__item__date,
+          ]}
+        >
+          {item.date || "no date"}
+        </Text>
+      )}
 
       {/* TABLE DETAILS */}
       <RowCell

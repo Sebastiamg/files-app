@@ -3,7 +3,7 @@ import { Activity } from "../common/interfaces/data.interface";
 export function htmlBaseES(data: Activity[], name: string) {
   return data
     ? `
-          <html>
+      <html>
         <head>
           <style>
             @page {
@@ -132,7 +132,7 @@ export function htmlBaseES(data: Activity[], name: string) {
                   .join("")}
             </table>
         </body>
-        </html>
+      </html>
         `
     : "";
 }
