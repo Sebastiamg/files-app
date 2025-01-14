@@ -1,42 +1,35 @@
 import { StyleSheet } from "react-native";
 
 const colors = {
-  primarys: "#F8961E",
-  secondary: "#F94144",
-  text: "#252422",
-  text_secondary: "#fff8f0",
-  text_3: "#fff8f0",
+  // text: "#252422",
+  // text_secondary: "#fff8f0",
 
   disable: "#d6d6d6",
   enable: "#F6F4F4",
 
-  on: "#adc178",
-  off: "#bc4749",
+  on: "#7cb518",
+  off: "#ba1f33",
 
-  // Azul:
-  primary: "#184e77",
-  level2: "#1e6091",
-  level3: "#1a759f",
-  level4: "#168aad",
+  pLevel3: "#c19ee0",
 
-  level5: "#2a6f97ff",
-  level6: "#2c7da0ff",
-  level7: "#468fafff",
-  level8: "#61a5c2ff",
-  level9: "#89c2d9ff",
-  level10: "#a9d6e5ff",
-  level11: "#cae9ff",
+  primary: "#0d3b66",
+  level2: "#1f4e92",
+  level3: "#2c5fa7",
+  level4: "#3a70bb",
+  level5: "#4b80d0",
+  level6: "#6a91d4",
+  level7: "#88a9d9",
+  level8: "#a1bbde",
+  level9: "#b4c9e3",
+  level10: "#c8d7e8",
+  level11: "#e0e8f0",
 
-  // orange - yellow
-  oLevel1: "#ffb703",
-  oLevel2: "#fd9e02",
-  oLevel3: "#fb8500",
+  oLevel1: "#8ecae6",
+  oLevel2: "#0353a4",
+  oLevel3: "#004385",
 
-  // purple
-  pLevel1: "#4e148c",
-  pLevel2: "#613dc1",
-  pLevel3: "#858ae3",
-
+  text: "#212121",
+  text_secondary: "#757575",
   textWhite: "#F1F8FD",
 };
 
@@ -60,12 +53,7 @@ export const headerStyles = StyleSheet.create({
     backgroundColor: colors.level2,
   },
   header__owner: {
-    color: colors.text,
-    fontSize: 17,
-    fontWeight: "bold",
-    paddingVertical: 5,
     flex: 0.5,
-    textAlign: "center",
   },
   header__developer: {
     flex: 0.5,
@@ -79,6 +67,12 @@ export const headerStyles = StyleSheet.create({
     paddingVertical: 2,
     color: colors.level8,
   },
+  header__owner__title: {
+    fontSize: 17,
+    fontWeight: "bold",
+    paddingVertical: 5,
+    textAlign: "center",
+  },
 });
 
 export const setNameStyles = StyleSheet.create({
@@ -88,7 +82,7 @@ export const setNameStyles = StyleSheet.create({
     paddingVertical: 5,
   },
   setName__text: {
-    color: colors.text_secondary,
+    color: colors.textWhite,
     fontSize: 17,
     fontWeight: "bold",
   },
@@ -132,7 +126,7 @@ export const navStyles = StyleSheet.create({
     flexDirection: "row",
     alignContent: "center",
     gap: 2,
-    backgroundColor: colors.text_3,
+    backgroundColor: colors.text_secondary,
   },
   navBar__button: {
     width: "50%",
@@ -171,14 +165,13 @@ export const layoutStyles = StyleSheet.create({
 
 export const formStyles = StyleSheet.create({
   form__container: {
-    borderBlockColor: colors.primary,
     width: "100%",
     height: "auto",
     borderWidth: 2,
     borderRadius: 5,
     gap: 3,
     backgroundColor: colors.level7,
-    boxShadow: "0px 0px 2px black, 0px 0px 2px black,",
+    // boxShadow: "0px 0px 2px black, 0px 0px 2px black,",
   },
   form__title: {
     fontSize: 20,
@@ -237,11 +230,12 @@ export const formStyles = StyleSheet.create({
   form__date__icon2: {
     textAlign: "center",
     width: "100%",
+    color: "#001242",
   },
   form__hour__container: {
     flex: 1,
     flexDirection: "row",
-    backgroundColor: colors.level3,
+    backgroundColor: colors.level6,
   },
 
   form__save__data__container: {
@@ -257,12 +251,14 @@ export const formStyles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     fontSize: 20,
+    color: colors.level9,
   },
 });
 
 export const inputStyles = StyleSheet.create({
   input__component: {
-    backgroundColor: colors.enable,
+    // backgroundColor: "red",
+    // backgroundColor: colors.enable,
     borderRadius: 5,
     padding: 10,
     flex: 0.8,
@@ -341,9 +337,9 @@ export const listStyles = StyleSheet.create({
   },
   header: {
     flexDirection: "row",
-    backgroundColor: colors.oLevel1,
+    backgroundColor: colors.oLevel2,
     borderRadius: 5,
-    borderWidth: 2,
+    // borderWidth: 2,
     flex: 1,
     alignItems: "center",
     alignContent: "center",
@@ -352,6 +348,7 @@ export const listStyles = StyleSheet.create({
   headerCell: {
     minWidth: 10,
     height: "100%",
+    color: colors.level10,
   },
   headerText: {
     fontWeight: "bold",

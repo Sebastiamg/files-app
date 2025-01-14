@@ -5,7 +5,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 
 import { formatName } from "../utils/formatName";
 import { Activity } from "../common/interfaces/data.interface";
-import { formStyles, inputStyles, voiceStyles } from "../common/styles/styles";
+import { formStyles, voiceStyles } from "../common/styles/styles";
 import {
   ExpoSpeechRecognitionModule,
   useSpeechRecognitionEvent,
@@ -15,6 +15,7 @@ import {
   ActivityDispatchContext,
 } from "./contexts/ActivityContext";
 import { getActivityEntrie } from "../services/asyncStorage.service";
+import { ShowToast } from "../utils/showToast";
 
 interface Props {
   componentTitle: keyof Activity;
@@ -24,9 +25,6 @@ export default function SpeechInput({ componentTitle }: Props) {
   const activityState = useContext(ActivityStateContext);
   const activityDispatch = useContext(ActivityDispatchContext);
 
-  // const [speechedValue, setSpeechedValue] = useState<string>(
-  //   activityState[componentTitle] as string,
-  // );
   const [isRecording, setIsRecording] = useState<boolean>(false);
   const [speechError, setSpeechError] = useState<string>("");
 
@@ -58,19 +56,18 @@ export default function SpeechInput({ componentTitle }: Props) {
       payload: {
         key: componentTitle,
         value: formatName(event.results[0]?.transcript, true),
-        // value: event.results[0]?.transcript,
       },
     });
   });
   useSpeechRecognitionEvent("error", (event) => {
     setSpeechError(event.message);
     console.log("error code:", event.error, "error message:", event.message);
+    ShowToast(formatName(event.error).concat(": ", event.message), "danger");
   });
 
   const handleChange = (text: string) => {
     activityDispatch({
       type: "add-any",
-      // payload: { key: componentTitle, value: formatName(text, true) },
       payload: { key: componentTitle, value: text },
     });
   };
@@ -78,13 +75,13 @@ export default function SpeechInput({ componentTitle }: Props) {
   async function startRecording() {
     const result = await ExpoSpeechRecognitionModule.requestPermissionsAsync();
     if (!result.granted) {
-      console.warn("Permissions not granted", result);
+      ShowToast("Mic permissions not granted", "danger");
       return;
     }
 
     // Start speech recognition
     ExpoSpeechRecognitionModule.start({
-      lang: "es-Mx",
+      lang: "es-ES",
       interimResults: true,
       maxAlternatives: 1,
       continuous: false,

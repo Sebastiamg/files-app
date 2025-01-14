@@ -2,7 +2,7 @@ import { View, Text, Pressable } from "react-native";
 
 import { headerStyles } from "../../common/styles/styles";
 import SetName from "../SetName";
-import { downloadJsonFile } from "../../services/json.service";
+import { downloadJsonFile, uploadJsonFile } from "../../services/json.service";
 
 interface Props {
   ownerName: string;
@@ -13,17 +13,23 @@ function donwnloadData() {
   downloadJsonFile();
 }
 
+function uploadData() {
+  uploadJsonFile();
+}
+
 export default function Header({ ownerName, setOwnerName }: Props) {
   return (
     <View style={headerStyles.header}>
       <Text style={headerStyles.header__title}>Production Activities</Text>
       <View style={headerStyles.header__names__container}>
-        <Text style={headerStyles.header__owner}>{ownerName}</Text>
+        <Pressable onLongPress={uploadData} style={headerStyles.header__owner}>
+          <Text style={headerStyles.header__owner__title}>{ownerName}</Text>
+        </Pressable>
         <Pressable
           onLongPress={donwnloadData}
           style={headerStyles.header__developer}
         >
-          <Text style={headerStyles.header__developer__title}>Beta</Text>
+          <Text style={headerStyles.header__developer__title}>1.0</Text>
         </Pressable>
       </View>
       <SetName setOwnerName={setOwnerName} ownerName={ownerName} />

@@ -1,13 +1,17 @@
 import * as FileSystem from "expo-file-system";
 import * as Sharing from "expo-sharing";
+import * as MediaLibrary from "expo-media-library";
+import * as DocumentPicker from "expo-document-picker";
 
 import { Activity, Data } from "../common/interfaces/data.interface";
 import { ShowToast } from "../utils/showToast";
 import jsonBase from "../jsonbase.json";
 import sortActivities from "../utils/sortActivities";
 import { sortDates } from "../utils/sortDates";
+import { Alert } from "react-native";
 
 const fileUri = FileSystem.documentDirectory + "data.json";
+const fileUriCache = FileSystem.cacheDirectory + "data.json";
 
 // -------------------- Clear data from JSON file
 export async function resetJsonData(): Promise<boolean> {
@@ -63,6 +67,74 @@ export async function downloadJsonFile() {
     const err = error as { message: string };
     ShowToast(err.message, "danger");
     return false;
+  }
+}
+
+// -------------------- Donwload JSON file and sabe locally - PENDIGN
+export async function downloadJsonFileAndSaveLocally() {
+  await FileSystem.copyAsync({ from: fileUri, to: fileUriCache });
+
+  // 1. Generar el contenido del archivo JSON
+  const data = await getJsonData();
+  const jsonString = JSON.stringify(data, null, 2);
+
+  // 2. Crear un archivo temporal
+  const fileUri1 = `${FileSystem.documentDirectory}info.json`;
+  await FileSystem.writeAsStringAsync(fileUri1, jsonString);
+  console.log("Archivo guardado temporalmente en:", fileUri1);
+
+  // 3. Solicitar permisos de almacenamiento
+  const { status } = await MediaLibrary.requestPermissionsAsync();
+  if (status !== "granted") {
+    Alert.alert(
+      "Permiso denegado",
+      "Se requieren permisos para guardar el archivo.",
+    );
+    return;
+  }
+
+  try {
+    const fileInfo = await FileSystem.getInfoAsync(fileUri1);
+    if (!fileInfo.exists) {
+      console.log("El archivo no existe en la ruta:", fileUri1);
+      return;
+    }
+    // 4. Guardar el archivo en la carpeta de Descargas
+    const asset = await MediaLibrary.createAssetAsync(fileUriCache);
+    const album = await MediaLibrary.getAlbumAsync("Download");
+    if (album == null) {
+      // Si no existe la carpeta "Download", se crea
+      await MediaLibrary.createAlbumAsync("Download", asset, false);
+    } else {
+      // Si ya existe, se añade el archivo
+      await MediaLibrary.addAssetsToAlbumAsync([asset], album, false);
+    }
+
+    Alert.alert("Éxito", "Archivo guardado en la carpeta de Descargas.");
+  } catch (error) {
+    Alert.alert("Error", "No se pudo guardar el archivo en Descargas.");
+    console.error("Error al guardar el archivo:", error);
+  }
+}
+
+// -------------------- Upload JSON file
+export async function uploadJsonFile() {
+  try {
+    const uploadedFile = await DocumentPicker.getDocumentAsync({
+      type: "application/json",
+    });
+
+    if (!uploadedFile.canceled && !uploadedFile.assets)
+      throw new Error("No file selected");
+
+    const fileUri = uploadedFile.assets![0].uri;
+    const jsonData = JSON.parse(await FileSystem.readAsStringAsync(fileUri));
+
+    console.log(jsonData);
+    return jsonData;
+  } catch (error) {
+    ShowToast(`${error}`, "danger");
+    console.error(error);
   }
 }
 
@@ -123,6 +195,7 @@ export const storeJsonData = async (activity: Activity) => {
   }
 };
 
+// -------------------- Edit activity in JSON
 export async function editActivityFromJsonData(activity: Activity) {
   try {
     const jsonData = await getJsonData();
@@ -151,6 +224,7 @@ export async function editActivityFromJsonData(activity: Activity) {
   }
 }
 
+// -------------------- Delete activity in JSON
 export async function deleteActivityFromJsonData(
   activityDate: string,
   activityId: string,
@@ -180,6 +254,7 @@ export async function deleteActivityFromJsonData(
   }
 }
 
+// -------------------- Edit Date in JSON
 export async function deleteDayFromJsonDate(dateToDelete: string) {
   try {
     const jsonData = await getJsonData();
